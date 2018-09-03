@@ -20,7 +20,7 @@ services:
     links:
       - db
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
   db:
     image: mariadb
@@ -34,7 +34,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -46,21 +46,21 @@ services:
     ports:
      - 8080:80
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
   redis:
     image: redis
     ports:
      - 6379
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
   redis-session:
     image: redis
     ports:
      - 6379
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
   mailhog:
     image: mailhog/mailhog
@@ -68,10 +68,10 @@ services:
       - 1025:1025
       - 8025:8025
     networks:
-      - MYMAGENTO2-network
+      - transbankpluginmagento2onepay-network
 
 networks:
-  MYMAGENTO2-network:
+  transbankpluginmagento2onepay-network:
     driver: bridge
 
 volumes:

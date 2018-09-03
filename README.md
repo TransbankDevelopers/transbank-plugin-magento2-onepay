@@ -27,16 +27,16 @@ Install [Docker](https://docs.docker.com/engine/installation/linux/docker-ce/ubu
 
 ### How to use
 
-Execute in your terminal, change the *MYMAGENTO2* to use the name of your project:
+Execute in your terminal, change the *transbankpluginmagento2onepay* to use the name of your project:
 
 ```
-curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s MYMAGENTO2 clone
+curl -s https://raw.githubusercontent.com/clean-docker/Magento2/master/init | bash -s transbankpluginmagento2onepay clone
 ```
 
 If you want to install the Magento 2, use like that:
 
 ```
-cd MYMAGENTO2
+cd transbankpluginmagento2onepay
 ./shell
 rm index.php
 install-magento2
@@ -58,7 +58,7 @@ Enjoy your new panels!
 
 | Commands  | Description  | Options & Examples |
 |---|---|---|
-| `./init`  | If you didn't use the CURL setup command above, please use this command changing the name of the project.  | `./init MYMAGENTO2` |
+| `./init`  | If you didn't use the CURL setup command above, please use this command changing the name of the project.  | `./init transbankpluginmagento2onepay` |
 | `./start`  | If you continuing not using the CURL you can start your container manually  | |
 | `./stop`  | Stop your project containers  | |
 | `./kill`  | Stops containers and removes containers, networks, volumes, and images created to the specific project  | |
