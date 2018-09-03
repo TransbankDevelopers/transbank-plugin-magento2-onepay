@@ -1,0 +1,9 @@
+# pack-refs with: peeled fully-peeled sorted 
+3b5d31a939cdd1868c79f50735cce251ba612a85 refs/remotes/origin/add-license-1
+9b7214993787e0f4a047f2dca388cd5ab51a62c3 refs/remotes/origin/mac
+e92f2849b1d86038606c539882a940c27265c603 refs/remotes/origin/master
+c8edc205b34f191e861f6073988400c583ae361e refs/remotes/origin/windows
+761f79cc06c0d9112ba8591d3c8874332f76e7f7 refs/tags/1.0.0
+548dfcd13a5fd030f96a5976e0cfcdcb54f5ec97 refs/tags/1.0.1
+91465f805efc9bd79d11bdfe63c22600b65d41e3 refs/tags/1.0.2
+666e77cd664e938627fb71cab4f755a519be0589 refs/tags/1.3.0
