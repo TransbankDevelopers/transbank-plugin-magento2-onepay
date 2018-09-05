@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+            <payment>
+                <ewallet>
+                <active>1</active>
+                <title>OnePay</title>
+                <payment_action>true</payment_action>
+                <model>Transbank\Onepay\Model\Ewallet</model>
+                <appKey>1a0c0639-bd2f-4846-8d26-81f43187e797</appKey>
+                <apiKey>dKVhq1WGt_XapIYirTXNyUKoWTDFfxaEV63-O5jcsdw</apiKey>
+                <secret>?XW#WOLG##FBAGEAYSNQ5APD#JF@$AYZ</secret>
+                <environment>INTEGRACION</environment>
+                <sucefully_pay>complete</sucefully_pay>
+                <error_pay>canceled</error_pay>
+                <order_status>pending</order_status>
+                </ewallet>
+            <!-- payment-config -->
+            </payment>
+    </default>
+</config>

@@ -35,7 +35,7 @@
           },
 
           placeOrder: function() {
-            
+
 
             var self = this,
               placeOrder;
