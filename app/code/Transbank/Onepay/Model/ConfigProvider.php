@@ -34,20 +34,15 @@ class ConfigProvider implements  ConfigProviderInterface
         $secret      = $this->_scopeConfig->getValue('payment/transbank_onepay/secret');
         $environment = $this->_scopeConfig->getValue('payment/transbank_onepay/environment');
 
+        $result = [
+            'appKey' => $appKey,
+            'apiKey' => $apiKey,
+            'secret' => $secret,
+            'environment' => $environment,
+            'url' => Transaction::getServiceUrl()
+        ];
 
-    $result = [
-        'appKey' => $appKey,
-        'apiKey' => $apiKey,
-        'secret' => $secret,ñs4
-        'environment' => $environment,
-        'url' => Transaction::getServiceUrl()
-    ];
-
-
-    return json_encode($result);
-
-
-
+        return json_encode($result);
     }
 
 
