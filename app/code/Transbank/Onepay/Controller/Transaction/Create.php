@@ -50,6 +50,7 @@ class Create extends \Magento\Framework\App\Action\Action {
 
             $transaction = Transaction::create($carro, $channel, $options);
 
+            //retorno para pruebas hasta que funcione...
             $response = array(
                 'externalUniqueNumber' => '38bab443-c55b-4d4e-86fa-8b9f4a2d2d13',
                 'amount' => 88000,
@@ -69,8 +70,7 @@ class Create extends \Magento\Framework\App\Action\Action {
                 'qrCodeAsBase64' => $transaction->getQrCodeAsBase64(),
                 'issuedAt' => $transaction->getIssuedAt(),
                 'occ' => $transaction->getOcc(),
-                'ott' => $transaction->getOtt(),
-                'channel' => $_POST['channel']
+                'ott' => $transaction->getOtt()
             );
             */
 
