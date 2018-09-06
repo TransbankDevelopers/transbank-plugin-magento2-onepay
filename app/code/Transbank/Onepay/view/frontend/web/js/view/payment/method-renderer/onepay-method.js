@@ -7,8 +7,7 @@ define(
         'Magento_Customer/js/model/customer',
         'Magento_Checkout/js/checkout-data',
         'Magento_Checkout/js/model/payment/additional-validators',
-        'mage/url',
-        'Magento_Payment/js/view/payment/cc-form'
+        'mage/url'
     ],
     function ($,
               Component,
@@ -19,6 +18,7 @@ define(
               additionalValidators,
               url) {
         'use strict';
+
         return Component.extend({
             defaults: {
                 template: 'Transbank_Onepay/payment/onepay'
@@ -38,28 +38,24 @@ define(
             },
 
             placeOrder: function() {
-                console.log("placeOrder");
-                console.log(this);
-                var result = window.checkoutConfig.createTransaction;
 
+                console.log("placeOrder", this);
 
-                result = JSON.parse(result);
-                console.log("RESULTADO PLACEORDER");
-                console.log(result);
+                var result = JSON.parse(window.checkoutConfig.createTransaction);
+                console.log("result", result);
 
+                require(['Onepay'], function ( Onepay ) {
+                    var options = {
+                        endpoint: './transaction-create',
+                        commerceLogo: 'https://tu-url.com/images/icons/logo-01.png',
+                        callbackUrl: './transaction-commit'
+                    };
+                    Onepay.checkout(options);
+                });
             },
 
             afterPlaceOrder: function() {
-                console.log("after place order");
-                console.log(this);
-
-
-
-
-
-
-
-
+                console.log("afterPlaceOrder", this);
             }
         })
     }
