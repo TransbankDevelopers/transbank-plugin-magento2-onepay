@@ -30,9 +30,9 @@
                     <label>Secreto Compartido</label>
                     <comment>Codigo Secreto Unico de Comercio</comment>
                 </field>
-                <field id="callbackUrl" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Url de callback</label>
-                    <comment>Url de callback</comment>
+                <field id="logoUrl" translate="label" type="text" sortOrder="7" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <label>Url del logo del comercio</label>
+                    <comment>Url del logo del comercio</comment>
                 </field>
             </group>
             <!-- payment-group -->
