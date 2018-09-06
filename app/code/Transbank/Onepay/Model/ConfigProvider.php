@@ -2,55 +2,33 @@
 
 namespace Transbank\Onepay\Model;
 use \Magento\Checkout\Model\ConfigProviderInterface;
-use \Transbank\Onepay\Transaction;
 
-class ConfigProvider implements  ConfigProviderInterface
-{
+class ConfigProvider implements ConfigProviderInterface {
 
-    public function __construct(
-        \Magento\Checkout\Model\Cart $cart,
-        \Magento\Framework\App\Action\Context $context,
-        \Magento\Checkout\Model\Session $session,
-        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-        \Magento\Store\Model\StoreManagerInterface $storeManager
-    ) {
-        $this->_scopeConfig  = $scopeConfig;
-        $this->_storeManager = $storeManager;
-        $this->_cart    = $cart;
-        $this->_session = $session;
+    public function __construct(\Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig) {
+        $this->scopeConfig  = $scopeConfig;
     }
 
-    public function getConfig()
-    {
+    public function getConfig() {
         return [
-            'createTransaction' => $this->getCreateTransaction(),
+            'pluginConfig' => $this->getPluginConfig()
         ];
     }
 
-    public function getCreateTransaction()
-    {
-        $appKey      = $this->_scopeConfig->getValue('payment/transbank_onepay/appKey');
-        $apiKey      = $this->_scopeConfig->getValue('payment/transbank_onepay/apiKey');
-        $secret      = $this->_scopeConfig->getValue('payment/transbank_onepay/secret');
-        $environment = $this->_scopeConfig->getValue('payment/transbank_onepay/environment');
+    public function getPluginConfig() {
+
+        $environment = $this->scopeConfig->getValue('payment/transbank_onepay/environment');
+        $apiKey = $this->scopeConfig->getValue('payment/transbank_onepay/apiKey');
+        $secret = $this->scopeConfig->getValue('payment/transbank_onepay/secret');
+        $logoUrl = $this->scopeConfig->getValue('payment/transbank_onepay/logoUrl');
 
         $result = [
-            'appKey' => $appKey,
+            'environment' => $environment,
             'apiKey' => $apiKey,
             'secret' => $secret,
-            'environment' => $environment,
-            'url' => Transaction::getServiceUrl()
+            'logoUrl' => $logoUrl
         ];
 
         return json_encode($result);
     }
-
-
-
-
-
-
-
-
-
 }
