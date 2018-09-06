@@ -41,14 +41,14 @@ define(
 
                 console.log("placeOrder", this);
 
-                var result = JSON.parse(window.checkoutConfig.createTransaction);
-                console.log("result", result);
+                var config = JSON.parse(window.checkoutConfig.pluginConfig);
+                console.log("config", config);
 
                 require(['Onepay'], function ( Onepay ) {
                     var options = {
-                        endpoint: './transaction-create',
-                        commerceLogo: 'https://tu-url.com/images/icons/logo-01.png',
-                        callbackUrl: './transaction-commit'
+                        endpoint: './transaction/create',
+                        commerceLogo: config.logoUrl,
+                        callbackUrl: './transaction/commit'
                     };
                     Onepay.checkout(options);
                 });
