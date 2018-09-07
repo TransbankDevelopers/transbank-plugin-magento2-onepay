@@ -44,14 +44,12 @@ define(
                 var config = JSON.parse(window.checkoutConfig.pluginConfig);
                 console.log("config", config);
 
-                require(['Onepay'], function ( Onepay ) {
-                    var options = {
-                        endpoint: './transaction/create',
-                        commerceLogo: config.logoUrl || '',
-                        callbackUrl: './transaction/commit'
-                    };
-                    Onepay.checkout(options);
-                });
+                var options = {
+                    endpoint: './transaction/create',
+                    commerceLogo: config.logoUrl || '',
+                    callbackUrl: './transaction/commit'
+                };
+                Onepay.checkout(options);
             },
 
             afterPlaceOrder: function() {
