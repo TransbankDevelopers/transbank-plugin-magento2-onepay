@@ -2,11 +2,12 @@
  
 namespace Transbank\Onepay\Controller\Transaction;
 
+use \Transbank\Onepay\OnepayBase;
 use \Transbank\Onepay\ShoppingCart;
 use \Transbank\Onepay\Item;
 use \Transbank\Onepay\Transaction;
-use \Transbank\Onepay\ChannelEnum;
-use \Transbank\Onepay\Options;
+use \Transbank\Onepay\Exceptions\TransactionCreateException;
+use \Transbank\Onepay\Exceptions\TransbankException;
 
 use \Transbank\Onepay\Model\Config\ConfigProvider;
 
@@ -19,26 +20,19 @@ class Create extends \Magento\Framework\App\Action\Action {
                                 \Magento\Checkout\Model\Cart $cart,
                                 \Magento\Checkout\Model\Session $session,
                                 \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-                                \Magento\Store\Model\StoreManagerInterface $storeManager,
                                 \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory) {
+
+        parent::__construct($context);
 
         $this->cart = $cart;
         $this->session = $session;
         $this->scopeConfig = $scopeConfig;
-        $this->storeManager = $storeManager;
         $this->resultJsonFactory = $resultJsonFactory;
-
-        parent::__construct($context);
     }
  
     public function execute() {
 
         $response = null;
-
-        $configProvider = new ConfigProvider($this->scopeConfig);
-        $apiKey = $configProvider->getApiKey();
-        $sharedSecret = $configProvider->getSharedSecret();
-        $environment = $configProvider->getEnvironment();
 
         //NOTA: Esto solamente se usa para pruebas durante el desarrollo del plugin, despues se debe eliminar y 
         //usar la linea siguiente donde el valor por defecto es null
@@ -47,42 +41,49 @@ class Create extends \Magento\Framework\App\Action\Action {
        
         if (isset($channel)) {
 
-            $options = new Options($apiKey, $sharedSecret);
+            $configProvider = new ConfigProvider($this->scopeConfig);
+            $apiKey = $configProvider->getApiKey();
+            $sharedSecret = $configProvider->getSharedSecret();
+            $environment = $configProvider->getEnvironment();
+
+            OnepayBase::setApiKey($apiKey);
+            OnepayBase::setSharedSecret($sharedSecret);
+            OnepayBase::setCurrentIntegrationType('TEST');
 
             $carro = new ShoppingCart();
 
             //TODO crear el carro de compras con los items reales
-
             $objeto = new Item('Pelota de futbol', 1, 20000); 
             $carro->add($objeto);
 
-            $amount = 10000; //TODO obtener el amount real
+            $externalUniqueNumber = $this->createExternalUniqueNumber();
+            $transaction = Transaction::create($carro, $channel, $externalUniqueNumber);
 
-            $transaction = Transaction::create($carro, $channel, $options);
-            
             $response = array(
                 'externalUniqueNumber' => $transaction->getExternalUniqueNumber(),
-                'amount' => $amount,
+                'amount' => $carro->getTotal(),
                 'qrCodeAsBase64' => $transaction->getQrCodeAsBase64(),
                 'issuedAt' => $transaction->getIssuedAt(),
                 'occ' => $transaction->getOcc(),
-                'ott' => $transaction->getOtt()
+                'ott' => $transaction->getOtt(),
+                'signature' => $transaction->getSignature()
             );
 
         } else {
 
-            //NOTA: Esto solamente se usa para pruebas durante el desarrollo del plugin, despues se debe eliminar
             $response = array(
-                'error' => 'Channel param is missing',
-                'apiKey' => $apiKey,
-                'sharedSecret' => $sharedSecret,
-                'environment' => $environment,
-                'channel' => $channel
+                'error' => 'Channel param is missing'
             );
         }
 
         $result = $this->resultJsonFactory->create();
         $result->setData($response);
         return $result;   
+    }
+
+    private function createExternalUniqueNumber() {
+        $data = $this->cart->getQuote()->getData();
+        $externalUniqueNumber = $data['store_id'] . '' . $data['entity_id'] . '' . $data['customer_id'] . '_' . rand(1, 10000000) . '_' . round(microtime(true) * 1000);
+        return $externalUniqueNumber;
     }
 }
