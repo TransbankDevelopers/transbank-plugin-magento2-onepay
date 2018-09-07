@@ -47,7 +47,7 @@ define(
                 require(['Onepay'], function ( Onepay ) {
                     var options = {
                         endpoint: './transaction/create',
-                        commerceLogo: config.logoUrl,
+                        commerceLogo: config.logoUrl || '',
                         callbackUrl: './transaction/commit'
                     };
                     Onepay.checkout(options);

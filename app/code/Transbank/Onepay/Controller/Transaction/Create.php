@@ -33,51 +33,48 @@ class Create extends \Magento\Framework\App\Action\Action {
 
         $response = null;
 
+        $apiKey = $this->scopeConfig->getValue('payment/transbank_onepay/apiKey');
+        $secret = $this->scopeConfig->getValue('payment/transbank_onepay/secret');
+        $environment = $this->scopeConfig->getValue('payment/transbank_onepay/environment');
+
+        //NOTA: Esto solamente se usa para pruebas durante el desarrollo del plugin, despues se debe eliminar y 
+        //usar la linea siguiente donde el valor por defecto es null
         $channel = isset($_POST['channel']) ? $_POST['channel'] : 'WEB';
+        //$channel = isset($_POST['channel']) ? $_POST['channel'] : null;
        
         if (isset($channel)) {
-
-            $apiKey = $this->scopeConfig->getValue('payment/transbank_onepay/apiKey');
-            $secret = $this->scopeConfig->getValue('payment/transbank_onepay/secret');
 
             $options = new Options($apiKey, $secret);
 
             $carro = new ShoppingCart();
 
-            # description, quantity, amount;
+            //TODO crear el carro de compras con los items reales
+
             $objeto = new Item('Pelota de futbol', 1, 20000); 
             $carro->add($objeto);
 
-            $transaction = Transaction::create($carro, $channel, $options);
+            $amount = 10000; //TODO obtener el amount real
 
-            //retorno para pruebas hasta que funcione...
-            $response = array(
-                'externalUniqueNumber' => '38bab443-c55b-4d4e-86fa-8b9f4a2d2d13',
-                'amount' => 88000,
-                'qrCodeAsBase64' => 'QRBASE64STRING',
-                'issuedAt' => '1534216134',
-                'occ' => '1808534370011282',
-                'ott' => '89435749',
-                'apiKey' => $apiKey,
-                'secret' => $secret,
-                'channel' => $channel,
-                'transaction' => $transaction
-            );
-            /*
+            $transaction = Transaction::create($carro, $channel, $options);
+            
             $response = array(
                 'externalUniqueNumber' => $transaction->getExternalUniqueNumber(),
-                'amount' => 88000,
+                'amount' => $amount,
                 'qrCodeAsBase64' => $transaction->getQrCodeAsBase64(),
                 'issuedAt' => $transaction->getIssuedAt(),
                 'occ' => $transaction->getOcc(),
                 'ott' => $transaction->getOtt()
             );
-            */
 
         } else {
 
+            //NOTA: Esto solamente se usa para pruebas durante el desarrollo del plugin, despues se debe eliminar
             $response = array(
-                'error' => 'Channel param is missing'
+                'error' => 'Channel param is missing',
+                'apiKey' => $apiKey,
+                'secret' => $secret,
+                'environment' => $environment,
+                'channel' => $channel
             );
         }
 
