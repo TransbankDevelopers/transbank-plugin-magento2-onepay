@@ -8,6 +8,8 @@ use \Transbank\Onepay\Transaction;
 use \Transbank\Onepay\ChannelEnum;
 use \Transbank\Onepay\Options;
 
+use \Transbank\Onepay\Model\Config\ConfigProvider;
+
 /**
  * Test controller: http://localhost/checkout/transaction/create
  */
@@ -33,9 +35,10 @@ class Create extends \Magento\Framework\App\Action\Action {
 
         $response = null;
 
-        $apiKey = $this->scopeConfig->getValue('payment/transbank_onepay/apiKey');
-        $secret = $this->scopeConfig->getValue('payment/transbank_onepay/secret');
-        $environment = $this->scopeConfig->getValue('payment/transbank_onepay/environment');
+        $configProvider = new ConfigProvider($this->scopeConfig);
+        $apiKey = $configProvider->getApiKey();
+        $sharedSecret = $configProvider->getSharedSecret();
+        $environment = $configProvider->getEnvironment();
 
         //NOTA: Esto solamente se usa para pruebas durante el desarrollo del plugin, despues se debe eliminar y 
         //usar la linea siguiente donde el valor por defecto es null
@@ -44,7 +47,7 @@ class Create extends \Magento\Framework\App\Action\Action {
        
         if (isset($channel)) {
 
-            $options = new Options($apiKey, $secret);
+            $options = new Options($apiKey, $sharedSecret);
 
             $carro = new ShoppingCart();
 
@@ -72,7 +75,7 @@ class Create extends \Magento\Framework\App\Action\Action {
             $response = array(
                 'error' => 'Channel param is missing',
                 'apiKey' => $apiKey,
-                'secret' => $secret,
+                'sharedSecret' => $sharedSecret,
                 'environment' => $environment,
                 'channel' => $channel
             );
