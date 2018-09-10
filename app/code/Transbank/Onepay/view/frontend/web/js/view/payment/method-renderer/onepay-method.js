@@ -27,22 +27,15 @@ define(
             getCode: function() {
               return 'transbank_onepay';
             },
-            isActive: function() {
-                return true;
-            },
             getTitle: function() {
                 return "Transbank Onepay";
             },
             getMailingAddress: function () {
                 return window.checkoutConfig.payment.checkmo.mailingAddress;
             },
-
             placeOrder: function() {
 
-                console.log("placeOrder", this);
-
                 var config = JSON.parse(window.checkoutConfig.pluginConfig);
-                console.log("config", config);
 
                 var options = {
                     endpoint: './transaction/create',
@@ -50,10 +43,6 @@ define(
                     callbackUrl: './transaction/commit'
                 };
                 Onepay.checkout(options);
-            },
-
-            afterPlaceOrder: function() {
-                console.log("afterPlaceOrder", this);
             }
         })
     }
