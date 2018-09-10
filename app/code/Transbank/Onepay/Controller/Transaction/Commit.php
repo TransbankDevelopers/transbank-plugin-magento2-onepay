@@ -61,7 +61,37 @@ class Commit extends \Magento\Framework\App\Action\Action {
                 $transactionCommitResponse = Transaction::commit($occ, $externalUniqueNumber);
 
                 if ($transactionCommitResponse->getResponseCode() == 'OK') {
-                    return $this->success($orderStatusComplete, 'Tu pago se ha realizado exitosamente');
+
+                    $amount = $transactionCommitResponse->getAmount();
+                    $buyOrder = $transactionCommitResponse->getBuyOrder();
+                    $authorizationCode = $transactionCommitResponse->getAuthorizationCode();
+                    $description = $transactionCommitResponse->getDescription();
+                    $issuedAt = date('Y-m-d H:i:s', $transactionCommitResponse->getIssuedAt());
+
+                    $message = "<h3>Detalles de la transacción en Onepay:</h3>
+                                <br><b>Fecha de Transacci&oacute;n:</b> {$issuedAt}
+                                <br><b>OCC:</b> {$occ}
+                                <br><b>N&uacute;mero de carro:</b> {$externalUniqueNumber}
+                                <br><b>C&oacute;digo de Autorizaci&oacute;n:</b> {$authorizationCode}
+                                <br><b>Orden de Compra:</b> {$buyOrder}
+                                <br><b>Estado:</b> {$description}
+                                <br><b>Monto de la Compra:</b> {$amount}";
+
+                    $installmentsNumber = $transactionCommitResponse->getInstallmentsNumber();
+
+                    if ($installmentsNumber == 1) {
+
+                        $message = $message . "<br><b>N&uacute;mero de cuotas:</b> Sin cuotas";
+
+                    } else {
+
+                        $installmentsAmount = $transactionCommitResponse->getInstallmentsAmount();
+
+                        $message = $message . "<br><b>N&uacute;mero de cuotas:</b> {$installmentsNumber}
+                                               <br><b>Monto cuota:</b> {$installmentsAmount}";
+                    }
+
+                    return $this->success($orderStatusComplete, $message);//'Tu pago se ha realizado exitosamente');
                 } else {
                     return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Vuelve a intentarlo más tarde.');
                 }
@@ -79,6 +109,7 @@ class Commit extends \Magento\Framework\App\Action\Action {
     private function success($orderStatus, $message) {
         $order = $this->getOrder();
         $order->setState($orderStatus)->setStatus($orderStatus);
+        $order->addStatusToHistory($order->getStatus(), $message);
         $order->save();
         $this->_messageManager->addSuccess(__($message));
         $this->_checkoutSession->getQuote()->setIsActive(false)->save();
@@ -88,6 +119,7 @@ class Commit extends \Magento\Framework\App\Action\Action {
     private function fail($orderStatus, $message) {
         $order = $this->getOrder();
         $order->setState($orderStatus)->setStatus($orderStatus);
+        $order->addStatusToHistory($order->getStatus(), $message);
         $order->save();
         $this->_messageManager->addError(__($message));
         $this->_checkoutSession->restoreQuote();
