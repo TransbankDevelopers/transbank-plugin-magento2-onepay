@@ -1,6 +1,5 @@
 {
   "name": "transbank/onepay",
-  "description": "N/A",
   "require": {
     "php": "7.1.20",
     "magento/module-sales": "101.0.*",
@@ -17,16 +16,10 @@
     "magento/module-config": "101.0.*"
   },
   "type": "magento2-module",
-  "version": "100.2.0",
-  "license": [
-    "proprietary"
-  ],
+  "version": "1.0.0",
   "autoload": {
     "files": [
       "registration.php"
-    ],
-    "psr-4": {
-      "Magento\\Authorizenet\\": ""
-    }
+    ]
   }
 }
