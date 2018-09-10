@@ -18,16 +18,18 @@ class Create extends \Magento\Framework\App\Action\Action {
 
     public function __construct(\Magento\Framework\App\Action\Context $context,
                                 \Magento\Checkout\Model\Cart $cart,
-                                \Magento\Checkout\Model\Session $session,
+                                \Magento\Checkout\Model\Session $checkoutSession,
                                 \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-                                \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory) {
+                                \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+                                \Magento\Quote\Model\QuoteManagement $quoteManagement) {
 
         parent::__construct($context);
 
-        $this->cart = $cart;
-        $this->session = $session;
-        $this->scopeConfig = $scopeConfig;
-        $this->resultJsonFactory = $resultJsonFactory;
+        $this->_cart = $cart;
+        $this->_checkoutSession = $checkoutSession;
+        $this->_scopeConfig = $scopeConfig;
+        $this->_resultJsonFactory = $resultJsonFactory;
+        $this->_quoteManagement = $quoteManagement;
     }
  
     public function execute() {
@@ -41,23 +43,52 @@ class Create extends \Magento\Framework\App\Action\Action {
        
         if (isset($channel)) {
 
-            $configProvider = new ConfigProvider($this->scopeConfig);
+            $configProvider = new ConfigProvider($this->_scopeConfig);
             $apiKey = $configProvider->getApiKey();
             $sharedSecret = $configProvider->getSharedSecret();
             $environment = $configProvider->getEnvironment();
 
             OnepayBase::setApiKey($apiKey);
             OnepayBase::setSharedSecret($sharedSecret);
-            OnepayBase::setCurrentIntegrationType('TEST');
+            OnepayBase::setCurrentIntegrationType($environment);
+
+            $quote = $this->_cart->getQuote();
+
+            //$quote->reserveOrderId();
+            //$id = $quote->getReservedOrderId();
+
+            $quote->getPayment()->importData(['method' => 'checkmo']);
+            $quote->collectTotals()->save();
+            $order = $this->_quoteManagement->submit($quote);
+
+            $orderStatus = 'pending_payment';
+            $order->setState($orderStatus)->setStatus($orderStatus);
+            $order->save();
+
+            $this->_checkoutSession->setLastQuoteId($quote->getId());
+            $this->_checkoutSession->setLastSuccessQuoteId($quote->getId());
+            $this->_checkoutSession->setLastOrderId($order->getId());
+            $this->_checkoutSession->setLastRealOrderId($order->getIncrementId());
+            $this->_checkoutSession->setLastOrderStatus($order->getStatus());
+            $this->_checkoutSession->setGrandTotal(round($quote->getGrandTotal()));
 
             $carro = new ShoppingCart();
 
-            //TODO crear el carro de compras con los items reales
-            $objeto = new Item('Pelota de futbol', 1, 20000); 
-            $carro->add($objeto);
+            $items = $quote->getAllVisibleItems();
 
-            $externalUniqueNumber = $this->createExternalUniqueNumber();
-            $transaction = Transaction::create($carro, $channel, $externalUniqueNumber);
+            foreach($items as $qItem) {
+                $item = new Item($qItem->getName(), intval($qItem->getQty()), intval($qItem->getPrice())); 
+                $carro->add($item);
+            }
+
+            $shippingAmount = $quote->getShippingAddress()->getShippingAmount();
+
+            if ($shippingAmount != 0) {
+                $item = new Item("Costo por envio", 1, intval($shippingAmount));
+                $carro->add($item);
+            }
+
+            $transaction = Transaction::create($carro, $channel);
 
             $response = array(
                 'externalUniqueNumber' => $transaction->getExternalUniqueNumber(),
@@ -65,25 +96,18 @@ class Create extends \Magento\Framework\App\Action\Action {
                 'qrCodeAsBase64' => $transaction->getQrCodeAsBase64(),
                 'issuedAt' => $transaction->getIssuedAt(),
                 'occ' => $transaction->getOcc(),
-                'ott' => $transaction->getOtt(),
-                'signature' => $transaction->getSignature()
+                'ott' => $transaction->getOtt()
             );
 
         } else {
 
             $response = array(
-                'error' => 'Channel param is missing'
+                'error' => 'Falta parámetro channel'
             );
         }
 
-        $result = $this->resultJsonFactory->create();
+        $result = $this->_resultJsonFactory->create();
         $result->setData($response);
         return $result;   
-    }
-
-    private function createExternalUniqueNumber() {
-        $data = $this->cart->getQuote()->getData();
-        $externalUniqueNumber = $data['store_id'] . '' . $data['entity_id'] . '' . $data['customer_id'] . '_' . rand(1, 10000000) . '_' . round(microtime(true) * 1000);
-        return $externalUniqueNumber;
     }
 }
