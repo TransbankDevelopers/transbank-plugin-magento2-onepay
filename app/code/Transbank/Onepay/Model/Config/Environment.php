@@ -10,8 +10,8 @@ class Environment implements \Magento\Framework\Option\ArrayInterface {
      * @return array
      */
     public function toOptionArray() {
-        return [['value' => 'INTEGRACION', 'label' => __('INTEGRACION')],
-                ['value' => 'PRODUCCION', 'label' => __('PRODUCCION')]];
+        return [['value' => 'TEST', 'label' => __('INTEGRACION')],
+                ['value' => 'LIVE', 'label' => __('PRODUCCION')]];
     }
 
     /**
@@ -20,6 +20,6 @@ class Environment implements \Magento\Framework\Option\ArrayInterface {
      * @return array
      */
     public function toArray() {
-        return ['INTEGRACION' => __('INTEGRACION'), 'PRODUCCION' => __('PRODUCCION')];
+        return ['INTEGRACION' => __('TEST'), 'PRODUCCION' => __('LIVE')];
     }
 }
