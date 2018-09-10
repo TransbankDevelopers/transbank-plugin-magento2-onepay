@@ -11,8 +11,10 @@ use \Transbank\Onepay\Exceptions\TransbankException;
 
 use \Transbank\Onepay\Model\Config\ConfigProvider;
 
+use \Magento\Sales\Model\Order;
+
 /**
- * Test controller: http://localhost/checkout/transaction/commit
+ * Controller for commit transaction Onepay
  */
 class Commit extends \Magento\Framework\App\Action\Action {
 
@@ -34,16 +36,16 @@ class Commit extends \Magento\Framework\App\Action\Action {
  
     public function execute() {
 
-        $orderStatusComplete = 'complete';
-        $orderStatusCanceled = 'canceled';
-        $orderStatusRejected = 'closed';
+        $orderStatusComplete = Order::STATE_COMPLETE;
+        $orderStatusCanceled = Order::STATE_CANCELED;
+        $orderStatusRejected = Order::STATE_CLOSED;
 
         $status = isset($_GET['status']) ? $_GET['status'] : null;
         $occ = isset($_GET['occ']) ? $_GET['occ'] : null;
         $externalUniqueNumber = isset($_GET['externalUniqueNumber']) ? $_GET['externalUniqueNumber'] : null;
 
         if ($status == null || $occ == null || $externalUniqueNumber == null) {
-            return $this->fail($payError, 'Parametros inválidos');
+            return $this->fail($orderStatusCanceled, 'Parametros inválidos');
         }
 
         if ($status == 'PRE_AUTHORIZED') {
@@ -66,10 +68,11 @@ class Commit extends \Magento\Framework\App\Action\Action {
                     $buyOrder = $transactionCommitResponse->getBuyOrder();
                     $authorizationCode = $transactionCommitResponse->getAuthorizationCode();
                     $description = $transactionCommitResponse->getDescription();
-                    $issuedAt = date('Y-m-d H:i:s', $transactionCommitResponse->getIssuedAt());
+                    $issuedAt = $transactionCommitResponse->getIssuedAt();
+                    $dateTransaction = date('Y-m-d H:i:s', $issuedAt);
 
-                    $message = "<h3>Detalles de la transacción en Onepay:</h3>
-                                <br><b>Fecha de Transacci&oacute;n:</b> {$issuedAt}
+                    $message = "<h3>Detalles del pago con Onepay:</h3>
+                                <br><b>Fecha de Transacci&oacute;n:</b> {$dateTransaction}
                                 <br><b>OCC:</b> {$occ}
                                 <br><b>N&uacute;mero de carro:</b> {$externalUniqueNumber}
                                 <br><b>C&oacute;digo de Autorizaci&oacute;n:</b> {$authorizationCode}

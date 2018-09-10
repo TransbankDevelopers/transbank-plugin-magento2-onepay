@@ -11,8 +11,10 @@ use \Transbank\Onepay\Exceptions\TransbankException;
 
 use \Transbank\Onepay\Model\Config\ConfigProvider;
 
+use \Magento\Sales\Model\Order;
+
 /**
- * Test controller: http://localhost/checkout/transaction/create
+ * Controller for create transaction Onepay
  */
 class Create extends \Magento\Framework\App\Action\Action {
 
@@ -61,7 +63,7 @@ class Create extends \Magento\Framework\App\Action\Action {
             $quote->collectTotals()->save();
             $order = $this->_quoteManagement->submit($quote);
 
-            $orderStatus = 'pending_payment';
+            $orderStatus = Order::STATE_PENDING_PAYMENT;
             $order->setState($orderStatus)->setStatus($orderStatus);
             $order->save();
 
@@ -90,13 +92,29 @@ class Create extends \Magento\Framework\App\Action\Action {
 
             $transaction = Transaction::create($carro, $channel);
 
+            $amount = $carro->getTotal();
+            $occ = $transaction->getOcc();
+            $ott = $transaction->getOtt();
+            $externalUniqueNumber = $transaction->getExternalUniqueNumber();
+            $issuedAt = $transaction->getIssuedAt();
+            $dateTransaction = date('Y-m-d H:i:s', $issuedAt);
+
+            $message = "<h3>Esperando pago con Onepay:</h3>
+                        <br><b>Fecha de Transacci&oacute;n:</b> {$dateTransaction}
+                        <br><b>OCC:</b> {$occ}
+                        <br><b>N&uacute;mero de carro:</b> {$externalUniqueNumber}
+                        <br><b>Monto de la Compra:</b> {$amount}";
+
+            $order->addStatusToHistory($order->getStatus(), $message);
+            $order->save();
+
             $response = array(
-                'externalUniqueNumber' => $transaction->getExternalUniqueNumber(),
-                'amount' => $carro->getTotal(),
+                'externalUniqueNumber' => $externalUniqueNumber,
+                'amount' => $amount,
                 'qrCodeAsBase64' => $transaction->getQrCodeAsBase64(),
-                'issuedAt' => $transaction->getIssuedAt(),
-                'occ' => $transaction->getOcc(),
-                'ott' => $transaction->getOtt()
+                'issuedAt' => $issuedAt,
+                'occ' => $occ,
+                'ott' => $ott
             );
 
         } else {
