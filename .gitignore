@@ -1,4 +1,5 @@
 /src/*
 .DS_Store
 /.idea
+.idea
 /docker-compose.yml

@@ -1,0 +1,28 @@
+{
+  "name": "transbank/onepay",
+  "require": {
+    "magento/module-sales": "101.0.*",
+    "magento/module-store": "100.2.*",
+    "magento/module-quote": "101.0.*",
+    "magento/module-checkout": "100.2.*",
+    "magento/module-backend": "100.2.*",
+    "magento/module-payment": "100.2.*",
+    "magento/module-catalog": "102.0.*",
+    "magento/framework": "101.0.*",
+    "transbank/transbank-sdk": "1.2.2",
+    "setasign/fpdf": "1.8.1"
+  },
+  "suggest": {
+    "magento/module-config": "101.0.*"
+  },
+  "type": "magento2-module",
+  "version": "dev-master",
+  "extra": {
+    "map": [
+        [
+            "*",
+            "Transbank/Onepay"
+        ]
+    ]
+  }
+}
