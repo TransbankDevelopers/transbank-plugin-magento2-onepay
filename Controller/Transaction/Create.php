@@ -77,7 +77,7 @@ class Create extends \Magento\Framework\App\Action\Action {
                 $items = $quote->getAllVisibleItems();
 
                 foreach($items as $qItem) {
-                    $item = new Item($qItem->getName(), intval($qItem->getQty()), intval($qItem->getPrice())); 
+                    $item = new Item($qItem->getName(), intval($qItem->getQty()), intval($qItem->getPriceInclTax()));
                     $carro->add($item);
                 }
 
