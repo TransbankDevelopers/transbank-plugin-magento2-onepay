@@ -2,14 +2,12 @@
  
 namespace Transbank\Onepay\Controller\Transaction;
 
-use Transbank\Onepay\OnepayBase;
-use Transbank\Onepay\ShoppingCart;
-use Transbank\Onepay\Item;
-use Transbank\Onepay\Transaction;
+use \Transbank\Onepay\OnepayBase;
+use \Transbank\Onepay\ShoppingCart;
+use \Transbank\Onepay\Item;
+use \Transbank\Onepay\Transaction;
 use \Transbank\Onepay\Exceptions\TransactionCreateException;
 use \Transbank\Onepay\Exceptions\TransbankException;
-
-use \Transbank\Onepay\Model\Config\ConfigProvider;
 
 use \Magento\Sales\Model\Order;
 
@@ -21,17 +19,18 @@ class Commit extends \Magento\Framework\App\Action\Action {
     public function __construct(\Magento\Framework\App\Action\Context $context,
                                 \Magento\Checkout\Model\Cart $cart,
                                 \Magento\Checkout\Model\Session $checkoutSession,
-                                \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
-                                \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory) {
-
+                                \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
+                                \Transbank\Onepay\Model\Config\ConfigProvider $configProvider,
+                                \Transbank\Onepay\Model\CustomLogger $log) {
 
         parent::__construct($context);
         
         $this->_cart = $cart;
         $this->_checkoutSession = $checkoutSession;
-        $this->_scopeConfig = $scopeConfig;
         $this->_resultJsonFactory = $resultJsonFactory;
         $this->_messageManager = $context->getMessageManager();
+        $this->_configProvider = $configProvider;
+        $this->_log = $log;
     }
  
     public function execute() {
@@ -44,17 +43,20 @@ class Commit extends \Magento\Framework\App\Action\Action {
         $occ = isset($_GET['occ']) ? $_GET['occ'] : null;
         $externalUniqueNumber = isset($_GET['externalUniqueNumber']) ? $_GET['externalUniqueNumber'] : null;
 
+        $metadata = "<br><b>Estado:</b> {$status}
+                     <br><b>OCC:</b> {$occ}
+                     <br><b>N&uacute;mero de carro:</b> {$externalUniqueNumber}";
+
         if ($status == null || $occ == null || $externalUniqueNumber == null) {
-            return $this->fail($orderStatusCanceled, 'Parametros inválidos');
+            return $this->fail($orderStatusCanceled, 'Parametros inválidos', $metadata);
         }
 
         if ($status == 'PRE_AUTHORIZED') {
             try {
 
-                $configProvider = new ConfigProvider($this->_scopeConfig);
-                $apiKey = $configProvider->getApiKey();
-                $sharedSecret = $configProvider->getSharedSecret();
-                $environment = $configProvider->getEnvironment();
+                $apiKey = $this->_configProvider->getApiKey();
+                $sharedSecret = $this->_configProvider->getSharedSecret();
+                $environment = $this->_configProvider->getEnvironment();
 
                 OnepayBase::setApiKey($apiKey);
                 OnepayBase::setSharedSecret($sharedSecret);
@@ -94,18 +96,19 @@ class Commit extends \Magento\Framework\App\Action\Action {
                                                <br><b>Monto cuota:</b> {$installmentsAmount}";
                     }
 
-                    return $this->success($orderStatusComplete, $message);//'Tu pago se ha realizado exitosamente');
+                    return $this->success($orderStatusComplete, $message);
                 } else {
-                    return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Vuelve a intentarlo más tarde.');
+                    return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Vuelve a intentarlo más tarde.', $metadata);
                 }
 
             } catch (TransbankException $transbank_exception) {
-                return $this->fail($orderStatusRejected, 'Error en el servicio de pago. Vuelve a intentarlo más tarde.');
+                $this->_log->error('Confirmación de transacción fallida: ' . $transbank_exception->getMessage());
+                return $this->fail($orderStatusRejected, 'Error en el servicio de pago. Vuelve a intentarlo más tarde.', $metadata);
             }
         } else if($status == 'REJECTED') {
-            return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Pago rechazado');
+            return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Pago rechazado', $metadata);
         } else {
-            return $this->fail($orderStatusCanceled, 'Tu pago ha fallado. Compra cancelada');
+            return $this->fail($orderStatusCanceled, 'Tu pago ha fallado. Compra cancelada', $metadata);
         }
     }
 
@@ -119,13 +122,14 @@ class Commit extends \Magento\Framework\App\Action\Action {
         return $this->resultRedirectFactory->create()->setPath('checkout/onepage/success');
     }
 
-    private function fail($orderStatus, $message) {
+    private function fail($orderStatus, $message, $metadata) {
         $order = $this->getOrder();
         $order->setState($orderStatus)->setStatus($orderStatus);
-        $order->addStatusToHistory($order->getStatus(), $message);
+        $order->addStatusToHistory($order->getStatus(), $message . $metadata);
         $order->save();
         $this->_messageManager->addError(__($message));
         $this->_checkoutSession->restoreQuote();
+        $this->_log->error($message . $metadata);
         return $this->resultRedirectFactory->create()->setPath('checkout/cart');
     }
 
