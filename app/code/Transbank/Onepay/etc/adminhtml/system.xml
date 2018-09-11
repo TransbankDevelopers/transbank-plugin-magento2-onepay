@@ -16,25 +16,25 @@
                 </field>
 
                 <field id="environment" translate="label" type="select" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Ambiente a Utilizar</label>
+                    <label>Endpoint</label>
                     <source_model>Transbank\Onepay\Model\Config\Environment</source_model>
                 </field>
 
                 <field id="apiKeyIntegration" translate="label" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>API Key Integración</label>
+                    <label>APIKey Integración</label>
                     <comment>Identificador Unico de API</comment>
                 </field>
                 <field id="sharedSecretIntegration" translate="label" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Secreto Compartido Integración</label>
+                    <label>Shared Secret Integración</label>
                     <comment>Codigo Secreto Unico de Comercio</comment>
                 </field>
 
                 <field id="apiKeyProduction" translate="label" type="text" sortOrder="5" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>API Key Producción</label>
+                    <label>APIKey Producción</label>
                     <comment>Identificador Unico de API</comment>
                 </field>
                 <field id="sharedSecretProduction" translate="label" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <label>Secreto Compartido Producción</label>
+                    <label>Shared Secret Producción</label>
                     <comment>Codigo Secreto Unico de Comercio</comment>
                 </field>
 
@@ -42,6 +42,11 @@
                     <label>Url del logo del comercio</label>
                     <comment>Url del logo del comercio</comment>
                 </field>
+
+                <field id="diagnosticButton" translate="label" type="button" sortOrder="8" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Transbank\Onepay\Block\System\Config\DiagnosticButton</frontend_model>
+                </field>
+
             </group>
 
         </section>
