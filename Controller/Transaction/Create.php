@@ -40,7 +40,7 @@ class Create extends \Magento\Framework\App\Action\Action {
         $response = null;
 
         $channel = isset($_POST['channel']) ? $_POST['channel'] : null;
-       
+
         if (isset($channel)) {
 
             try {
@@ -53,17 +53,23 @@ class Create extends \Magento\Framework\App\Action\Action {
                 OnepayBase::setSharedSecret($sharedSecret);
                 OnepayBase::setCurrentIntegrationType($environment);
 
+                $orderStatusPendingPayment = Order::STATE_PENDING_PAYMENT;
+
+                $tmpOrder = $this->getOrder();
+
+                if ($tmpOrder != null && $tmpOrder->getStatus() == $orderStatusPendingPayment) {
+                    $orderStatusCanceled = Order::STATE_CANCELED;
+                    $tmpOrder->setState($orderStatusCanceled)->setStatus($orderStatusCanceled);
+                    $tmpOrder->save();
+                    $this->_checkoutSession->restoreQuote();
+                }
+
                 $quote = $this->_cart->getQuote();
-
-                //$quote->reserveOrderId();
-                //$id = $quote->getReservedOrderId();
-
                 $quote->getPayment()->importData(['method' => Onepay::CODE]);
                 $quote->collectTotals()->save();
                 $order = $this->_quoteManagement->submit($quote);
 
-                $orderStatus = Order::STATE_PENDING_PAYMENT;
-                $order->setState($orderStatus)->setStatus($orderStatus);
+                $order->setState($orderStatusPendingPayment)->setStatus($orderStatusPendingPayment);
                 $order->save();
 
                 $this->_checkoutSession->setLastQuoteId($quote->getId());
@@ -89,7 +95,13 @@ class Create extends \Magento\Framework\App\Action\Action {
                     $carro->add($item);
                 }
 
-                $this->_log->info('Creando transaccion');
+                $dataLog = array('quote_id' => $this->_checkoutSession->getLastQuoteId(),
+                                 'order_id' => $this->_checkoutSession->getLastOrderId(),
+                                 'order_increment_id' => $this->_checkoutSession->getLastRealOrderId(),
+                                 'grand_total' => $this->_checkoutSession->getGrandTotal()
+                                );
+
+                $this->_log->info('Creando transaccion: ' . json_encode($dataLog));
 
                 $transaction = Transaction::create($carro, $channel);
 
@@ -118,6 +130,9 @@ class Create extends \Magento\Framework\App\Action\Action {
                     'ott' => $ott
                 );
 
+                $this->_checkoutSession->getQuote()->setIsActive(true)->save();
+                $this->_cart->getQuote()->setIsActive(true)->save();
+
             } catch (TransbankException $transbank_exception) {
                 $msg = 'Creacion de transacción fallida: ' . $transbank_exception->getMessage();
                 $this->_log->error($msg);
@@ -133,5 +148,18 @@ class Create extends \Magento\Framework\App\Action\Action {
         $result = $this->_resultJsonFactory->create();
         $result->setData($response);
         return $result;   
+    }
+
+    private function getOrder() {
+        try {
+            $orderId = $this->_checkoutSession->getLastOrderId();
+            if ($orderId == null) {
+                return null;
+            }
+            $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+            return $objectManager->create('\Magento\Sales\Model\Order')->load($orderId);
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }

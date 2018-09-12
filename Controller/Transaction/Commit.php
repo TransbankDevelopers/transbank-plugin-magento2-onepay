@@ -35,7 +35,8 @@ class Commit extends \Magento\Framework\App\Action\Action {
  
     public function execute() {
 
-        $orderStatusComplete = Order::STATE_COMPLETE;
+        //$orderStatusComplete = Order::STATE_COMPLETE;
+        $orderStatusComplete = Order::STATE_PROCESSING;
         $orderStatusCanceled = Order::STATE_CANCELED;
         $orderStatusRejected = Order::STATE_CLOSED;
 
