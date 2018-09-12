@@ -13,7 +13,7 @@ class Onepay extends \Magento\Payment\Model\Method\AbstractMethod {
      * @var string
      */
     protected $_code = 'transbank_onepay';
-    protected $_supportedCurrencyCodes = array('CLP', 'USD');
+    protected $_supportedCurrencyCodes = array('CLP');
 
     /**
      * Availability for currency
