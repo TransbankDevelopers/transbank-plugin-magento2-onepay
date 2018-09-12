@@ -96,7 +96,13 @@ class Commit extends \Magento\Framework\App\Action\Action {
                                                <br><b>Monto cuota:</b> {$installmentsAmount}";
                     }
 
-                    return $this->success($orderStatusComplete, $message);
+                    $metadata2 = array('amount' => $amount, 
+                                    'authorizationCode' => $authorizationCode,
+                                    'occ' => $occ,
+                                    'externalUniqueNumber' => $externalUniqueNumber,
+                                    'issuedAt' => $issuedAt);
+
+                    return $this->success($orderStatusComplete, $message, $metadata2);
                 } else {
                     return $this->fail($orderStatusRejected, 'Tu pago ha fallado. Vuelve a intentarlo más tarde.', $metadata);
                 }
@@ -112,10 +118,11 @@ class Commit extends \Magento\Framework\App\Action\Action {
         }
     }
 
-    private function success($orderStatus, $message) {
+    private function success($orderStatus, $message, $metadata) {
         $order = $this->getOrder();
         $order->setState($orderStatus)->setStatus($orderStatus);
         $order->addStatusToHistory($order->getStatus(), $message);
+        $order->addStatusToHistory($order->getStatus(), json_encode($metadata));
         $order->save();
         $this->_messageManager->addSuccess(__($message));
         $this->_checkoutSession->getQuote()->setIsActive(false)->save();
