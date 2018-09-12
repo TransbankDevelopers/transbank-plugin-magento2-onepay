@@ -105,7 +105,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 12](img/paso12.png)
 
-4. Elejir país Chile
+4. Elegir el país Chile
 
   ![Paso 13](img/paso13.png)
 
@@ -136,6 +136,26 @@ Para el ambiente de Integración, puedes utilizar las siguientes credenciales pa
 
   ![Paso 17](img/paso17.png)
 
+## Configuración de magento2 para Chile CLP
+
+El plugin solamente funciona con moneda chilena CLP dado esto magento2 debe estar correctamente configurado para que que se pueda usar Onepay.
+
+1. Ir a la sección de administración (Stores / General / Country Option) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
+
+  ![Paso 1](img/clp1.png)
+
+2. Ir a la sección de administración (Stores / Currency Setup / Country Option) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
+
+  ![Paso 2](img/clp2.png)
+
+3. Ir a la sección de administración (Stores / Currency) y verificar en las dos secciones (Currency Rates y Currency Symbols) que CLP se encuentre activo.
+
+  ![Paso 3](img/clp3.png)
+
+  ![Paso 4](img/clp4.png)
+
+  ![Paso 5](img/clp5.png)
+
 ## Prueba de instalación con transacción
 
 En ambiente de integración es posible realizar una prueba de transacción utilizando un emulador de pagos online.
@@ -147,46 +167,60 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
   ![Paso 1](img/paso18.png)
 
+* Ir a la cuenta de usuario y modificar la dirección de envio para que el país sea Chile (http://localhost/customer/account/)
+
+  Editar "Default Shipping Address"
+
+  ![Paso 1](img/dir1.png)
+
+  Seleccionar "Country" Chile y guardar los cambios
+
+  ![Paso 2](img/dir2.png)
+
+  Ahora se puede ver que la dirección es de Chile
+
+  ![Paso 3](img/dir3.png)
+
 * Ya con la sesión iniciada, ingrese a cualquier sección para agregar productos
 
-  ![Paso 2](img/paso19.png)
+  ![Paso 4](img/paso19.png)
 
 * Agregue al carro de compras un producto:
 
-  ![Paso 3](img/paso20.png)
+  ![Paso 5](img/paso20.png)
 
 * Seleccione el carro de compras y luego presione el botón [Proceed to Checkout]:
 
-  ![Paso 4](img/paso21.png)
+  ![Paso 6](img/paso21.png)
 
 * Seleccione método de envío y presione el botón [Next]
 
-  ![Paso 5](img/paso22.png)
+  ![Paso 7](img/paso22.png)
 
 * Seleccione método de pago Transbank Onepay, luego precione el botón [Place Order]
 
-  ![Paso 6](img/paso23.png)
+  ![Paso 8](img/paso23.png)
 
 * Una vez presionado el botón para iniciar la compra, se mostrará la ventana de pago Onepay, tal como se ve en la imagen. Toma nota del número que aparece como "Código de compra", ya que lo necesitarás para emular el pago en el siguiente paso:
   
-  ![Paso 7](img/paso24.png)
+  ![Paso 9](img/paso24.png)
   
 * En otra ventana del navegador, ingresa al emulador de pagos desde [https://onepay.ionix.cl/mobile-payment-emulator/](https://onepay.ionix.cl/mobile-payment-emulator/), utiliza test@onepay.cl como correo electrónico, y el código de compra obtenido desde la pantalla anterior. Una vez ingresado los datos solicitados, presiona el botón "Iniciar Pago":
 * 
-  ![Paso 8](img/paso25.png)
+  ![Paso 10](img/paso25.png)
   
 * Si todo va bien, el emulador mostrará opciones para simular situaciones distintas. Para simular un pago exitoso, presiona el botón `PRE_AUTHORIZED`. En caso de querer simular un pago fallido, presiona le botón `REJECTED`. Simularemos un pago exitóso presionando el botón `PRE_AUTHORIZED`.
 
-  ![Paso 9](img/paso26.png)
+  ![Paso 11](img/paso26.png)
   
 * Vuelve a la ventana del navegador donde se encuentra Magento2 y podrás comprobar que el pago ha sido exitoso.
 
- ![Paso 10](img/paso27.png)
+ ![Paso 12](img/paso27.png)
 
 * Además si accedes al sitio de administración seccion (Sales / Ordes) se podra ver la orden creada y el detalle de los datos entregados por OnePay.
 
- ![Paso 11](img/paso28.png)
+ ![Paso 13](img/paso28.png)
 
- ![Paso 12](img/paso29.png)
+ ![Paso 14](img/paso29.png)
 
- ![Paso 13](img/paso30.png)
+ ![Paso 15](img/paso30.png)
