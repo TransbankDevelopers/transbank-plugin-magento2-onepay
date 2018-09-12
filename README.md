@@ -25,3 +25,8 @@ Install
 4. Enable and configure Onepay in Magento Admin under Stores/Configuration/Payment Methods/OnePay
 
 5. Configure APIkey and Shared Secret for both environments
+
+
+## Other Notes
+
+Onepay works with CLP only! If CLP is not your base currency, you will not see this module on checkout pages. This condition is hardcoded in [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
