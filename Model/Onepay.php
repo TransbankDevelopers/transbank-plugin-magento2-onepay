@@ -7,12 +7,18 @@ namespace Transbank\Onepay\Model;
  */
 class Onepay extends \Magento\Payment\Model\Method\AbstractMethod {
 
+    const CODE = 'transbank_onepay';
+
     /**
      * Payment code
      *
      * @var string
      */
-    protected $_code = 'transbank_onepay';
+    protected $_code = self::CODE;
+
+    /**
+     * Array of currency support
+     */
     protected $_supportedCurrencyCodes = array('CLP');
 
     /**

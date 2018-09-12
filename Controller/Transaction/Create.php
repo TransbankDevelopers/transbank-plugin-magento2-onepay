@@ -8,6 +8,7 @@ use \Transbank\Onepay\Item;
 use \Transbank\Onepay\Transaction;
 use \Transbank\Onepay\Exceptions\TransactionCreateException;
 use \Transbank\Onepay\Exceptions\TransbankException;
+use \Transbank\Onepay\Model\Onepay;
 
 use \Magento\Sales\Model\Order;
 
@@ -57,7 +58,7 @@ class Create extends \Magento\Framework\App\Action\Action {
                 //$quote->reserveOrderId();
                 //$id = $quote->getReservedOrderId();
 
-                $quote->getPayment()->importData(['method' => 'checkmo']);
+                $quote->getPayment()->importData(['method' => Onepay::CODE]);
                 $quote->collectTotals()->save();
                 $order = $this->_quoteManagement->submit($quote);
 
