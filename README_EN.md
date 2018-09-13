@@ -53,6 +53,7 @@ rm -rf app/code/Transbank/Onepay
 
 ```bash
 composer require transbank/onepay:dev-master
+composer update
 magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
