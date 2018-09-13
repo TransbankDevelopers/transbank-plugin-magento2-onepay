@@ -1,5 +1,4 @@
 # Transbank Magento2 Onepay Plugin
-======================
 
 ## Description
 
@@ -37,12 +36,15 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
 
 5. Configure APIkey and Shared Secret for both environments (Production and Integration)
 
-## Other Notes
+## Update
 
-For update the plugin:
+1. Go to Magento2 root folder
 
+2. Enter following commands to update module:
 ```bash
 composer update transbank/onepay:dev-master --with-dependencies
+magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
+## Other Notes
 
 Onepay works with CLP only! If CLP is not your base currency, you will not see this module on checkout pages. This condition is hardcoded in [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
