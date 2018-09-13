@@ -34,19 +34,21 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
     ```
 4. Habilitar y configurar el plugin OnePay en la sección de administración de magento2 bajo  Stores/Configuration/Payment Methods/OnePay
 
-5. Configurar APIkey y Shared Secret para ambos ambientes (Produccion e Integracion)
+5. Configurar APIkey y Shared Secret para ambos ambientes (Producción e Integración)
 
 ## Actualización
 
 1. Ir a la carpeta base de Magento2
 
 2. Ingresar los siguientes comandos para actualizar el plugin:
+
 ```bash
 magento module:disable Transbank_Onepay --clear-static-content
-magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
-composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
-rm -rf app/code/Transbank/
-composer update transbank/onepay:dev-master --with-dependencies
+composer remove transbank/onepay:dev-master
+rm -rf vendor/transbank/onepay/
+rm -rf app/code/Transbank
+composer require transbank/onepay:dev-master
+magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
 ## Otras Notas
