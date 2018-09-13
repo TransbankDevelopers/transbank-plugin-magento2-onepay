@@ -42,6 +42,10 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
 
 2. Enter following commands to update module:
 ```bash
+magento module:disable Transbank_Onepay --clear-static-content
+magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
+composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
+rm -rf app/code/Transbank/
 composer update transbank/onepay:dev-master --with-dependencies
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
