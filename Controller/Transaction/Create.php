@@ -41,6 +41,7 @@ class Create extends \Magento\Framework\App\Action\Action {
         $response = null;
 
         $channel = isset($_POST['channel']) ? $_POST['channel'] : null;
+        $guestEmail = isset($_GET['guestEmail']) ? $_GET['guestEmail'] : null;
 
         if (isset($channel)) {
 
@@ -72,6 +73,20 @@ class Create extends \Magento\Framework\App\Action\Action {
                 }
 
                 $quote = $this->_cart->getQuote();
+
+                if ($guestEmail != null) {
+                    $this->_log->info('set guest email: ' . $guestEmail);
+                    $quote->getBillingAddress()->setEmail($guestEmail);
+                    $quote->setData('customer_email', $quote->getBillingAddress()->getEmail());
+                    $quote->setData('customer_firstname', $quote->getBillingAddress()->getFirstName());
+                    $quote->setData('customer_lastname', $quote->getBillingAddress()->getLastName());
+                    $quote->setData('customer_is_guest', 1);
+                }
+
+                $quoteData = $quote->getData();
+
+                $this->_log->info('d:: ' .  json_encode($quoteData));
+
                 $quote->getPayment()->importData(['method' => Onepay::CODE]);
                 $quote->collectTotals()->save();
                 $order = $this->_quoteManagement->submit($quote);

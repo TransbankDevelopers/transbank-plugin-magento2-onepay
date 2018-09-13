@@ -7,7 +7,8 @@ define(
         'Magento_Customer/js/model/customer',
         'Magento_Checkout/js/checkout-data',
         'Magento_Checkout/js/model/payment/additional-validators',
-        'mage/url'
+        'mage/url',
+        'Magento_Checkout/js/model/quote'
     ],
     function ($,
               Component,
@@ -16,7 +17,8 @@ define(
               customer,
               checkoutData,
               additionalValidators,
-              url) {
+              url,
+              quote) {
         'use strict';
 
         return Component.extend({
@@ -37,8 +39,14 @@ define(
 
                 var config = JSON.parse(window.checkoutConfig.pluginConfig);
 
+                var endpoint = './transaction/create';
+
+                if (quote.guestEmail) {
+                    endpoint+='?guestEmail=' + encodeURIComponent(quote.guestEmail);
+                }
+
                 var options = {
-                    endpoint: './transaction/create',
+                    endpoint: endpoint,
                     commerceLogo: config.logoUrl || '',
                     callbackUrl: './transaction/commit'
                 };
