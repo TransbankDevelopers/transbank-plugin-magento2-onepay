@@ -40,6 +40,19 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
 
 1. Go to Magento2 root folder
 
+2. Enter following commands to update plugin:
+
+```bash
+magento module:disable Transbank_Onepay --clear-static-content
+composer remove transbank/onepay:dev-master
+rm -rf vendor/transbank/onepay/
+rm -rf app/code/Transbank/Onepay
+```
+
+## Reinstall
+
+1. Go to Magento2 root folder
+
 2. Enter following commands to disable and remove plugin:
 
 ```bash

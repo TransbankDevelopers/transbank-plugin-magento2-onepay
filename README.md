@@ -18,7 +18,7 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
 
 1. Ir a la carpeta base de Magento2
 
-2. Ingresar los siguientes comandos para instalar el plugin:
+2. Ejecutar los siguientes comandos para instalar el plugin:
 
     ```bash
     composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
@@ -26,7 +26,7 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
     ```
    Esperar mientras las dependencias son actualizadas.
 
-3. Ingresar los siguientes comandos para habilitar el modulo:
+3. Ejecutar los siguientes comandos para habilitar el modulo:
 
     ```bash
     magento module:enable Transbank_Onepay --clear-static-content
@@ -40,7 +40,19 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
 
 1. Ir a la carpeta base de Magento2
 
-2. Ingresar los siguientes comandos para deshabilitar y eliminar el plugin:
+2. Ejecutar los siguientes comandos para actualizar el plugin
+
+```bash
+magento module:disable Transbank_Onepay --clear-static-content
+composer update
+magento module:enable Transbank_Onepay --clear-static-content
+magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
+```
+## Reinstalación
+
+1. Ir a la carpeta base de Magento2
+
+2. Ejecutar los siguientes comandos para deshabilitar y eliminar el plugin:
 
 ```bash
 magento module:disable Transbank_Onepay --clear-static-content
@@ -49,7 +61,7 @@ rm -rf vendor/transbank/onepay/
 rm -rf app/code/Transbank/Onepay
 ```
 
-3. Ingresar los siguientes comandos para instalar y habilitar el plugin:
+3. Ejecutar los siguientes comandos para instalar y habilitar el plugin:
 
 ```bash
 composer require transbank/onepay:dev-master
