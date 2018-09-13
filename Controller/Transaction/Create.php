@@ -85,8 +85,6 @@ class Create extends \Magento\Framework\App\Action\Action {
 
                 $quoteData = $quote->getData();
 
-                $this->_log->info('d:: ' .  json_encode($quoteData));
-
                 $quote->getPayment()->importData(['method' => Onepay::CODE]);
                 $quote->collectTotals()->save();
                 $order = $this->_quoteManagement->submit($quote);
