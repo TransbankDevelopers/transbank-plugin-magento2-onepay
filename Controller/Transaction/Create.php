@@ -6,6 +6,7 @@ use \Transbank\Onepay\OnepayBase;
 use \Transbank\Onepay\ShoppingCart;
 use \Transbank\Onepay\Item;
 use \Transbank\Onepay\Transaction;
+use \Transbank\Onepay\Options;
 use \Transbank\Onepay\Exceptions\TransactionCreateException;
 use \Transbank\Onepay\Exceptions\TransbankException;
 use \Transbank\Onepay\Model\Onepay;
@@ -52,6 +53,12 @@ class Create extends \Magento\Framework\App\Action\Action {
                 OnepayBase::setApiKey($apiKey);
                 OnepayBase::setSharedSecret($sharedSecret);
                 OnepayBase::setCurrentIntegrationType($environment);
+
+                $options = new Options($apiKey, $sharedSecret);
+
+                if ($environment == 'LIVE') {
+                    $options->setAppKey('F43FDB87-32BB-4184-AA46-40EA62A8E9F3');
+                }
 
                 $orderStatusPendingPayment = Order::STATE_PENDING_PAYMENT;
 
@@ -103,7 +110,7 @@ class Create extends \Magento\Framework\App\Action\Action {
 
                 $this->_log->info('Creando transaccion: ' . json_encode($dataLog));
 
-                $transaction = Transaction::create($carro, $channel);
+                $transaction = Transaction::create($carro, $channel, $options);
 
                 $amount = $carro->getTotal();
                 $occ = $transaction->getOcc();

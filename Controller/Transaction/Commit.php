@@ -6,6 +6,7 @@ use \Transbank\Onepay\OnepayBase;
 use \Transbank\Onepay\ShoppingCart;
 use \Transbank\Onepay\Item;
 use \Transbank\Onepay\Transaction;
+use \Transbank\Onepay\Options;
 use \Transbank\Onepay\Exceptions\TransactionCreateException;
 use \Transbank\Onepay\Exceptions\TransbankException;
 
@@ -63,7 +64,13 @@ class Commit extends \Magento\Framework\App\Action\Action {
                 OnepayBase::setSharedSecret($sharedSecret);
                 OnepayBase::setCurrentIntegrationType($environment);
 
-                $transactionCommitResponse = Transaction::commit($occ, $externalUniqueNumber);
+                $options = new Options($apiKey, $sharedSecret);
+
+                if ($environment == 'LIVE') {
+                    $options->setAppKey('F43FDB87-32BB-4184-AA46-40EA62A8E9F3');
+                }
+
+                $transactionCommitResponse = Transaction::commit($occ, $externalUniqueNumber, $options);
 
                 if ($transactionCommitResponse->getResponseCode() == 'OK') {
 
