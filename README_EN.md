@@ -18,7 +18,7 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
 
 1. Go to Magento2 root folder
 
-2. Enter following commands to install module:
+2. Enter following commands to install plugin:
 
     ```bash
     composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
@@ -26,7 +26,7 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
     ```
    Wait while dependencies are updated.
 
-3. Enter following commands to enable module:
+3. Enter following commands to enable plugin:
 
     ```bash
     magento module:enable Transbank_Onepay --clear-static-content
@@ -40,17 +40,23 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
 
 1. Go to Magento2 root folder
 
-2. Enter following commands to update module:
+2. Enter following commands to disable and remove plugin:
 
 ```bash
 magento module:disable Transbank_Onepay --clear-static-content
 composer remove transbank/onepay:dev-master
 rm -rf vendor/transbank/onepay/
-rm -rf app/code/Transbank
+rm -rf app/code/Transbank/Onepay
+```
+
+3. Enter following commands to install and enable plugin:
+
+```bash
 composer require transbank/onepay:dev-master
 magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
+
 ## Other Notes
 
 Onepay works with CLP only! If CLP is not your base currency, you will not see this module on checkout pages. This condition is hardcoded in [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)

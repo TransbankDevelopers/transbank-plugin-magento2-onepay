@@ -40,17 +40,24 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
 
 1. Ir a la carpeta base de Magento2
 
-2. Ingresar los siguientes comandos para actualizar el plugin:
+2. Ingresar los siguientes comandos para deshabilitar y eliminar el plugin:
 
 ```bash
 magento module:disable Transbank_Onepay --clear-static-content
 composer remove transbank/onepay:dev-master
 rm -rf vendor/transbank/onepay/
-rm -rf app/code/Transbank
+rm -rf app/code/Transbank/Onepay
+```
+
+3. Ingresar los siguientes comandos para instalar y habilitar el plugin:
+
+```bash
 composer require transbank/onepay:dev-master
 magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
+
+
 ## Otras Notas
 
 Onepay solo trabaja con CLP! Si CLP no es tu modena principal, no podrás usar este plugin en el proceso de checkout. Esto se encuentra en duro en [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
