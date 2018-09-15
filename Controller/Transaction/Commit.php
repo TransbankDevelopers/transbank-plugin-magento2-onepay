@@ -131,6 +131,14 @@ class Commit extends \Magento\Framework\App\Action\Action {
         $order->setState($orderStatus)->setStatus($orderStatus);
         $order->addStatusToHistory($order->getStatus(), $message);
         $order->addStatusToHistory($order->getStatus(), json_encode($metadata));
+
+        $payment = $order->getPayment();
+
+        $externalUniqueNumber = $metadata['externalUniqueNumber'];
+        $payment->setLastTransId($externalUniqueNumber);
+        $payment->setTransactionId($externalUniqueNumber);
+        $payment->setAdditionalInformation([\Magento\Sales\Model\Order\Payment\Transaction::RAW_DETAILS => (array)$metadata]);
+
         $order->save();
         $this->_messageManager->addSuccess(__($message));
         $this->_checkoutSession->getQuote()->setIsActive(false)->save();
