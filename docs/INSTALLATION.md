@@ -199,7 +199,7 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
   ![Paso 7](img/paso22.png)
 
-* Selecciona método de pago Transbank Onepay, luego preciona el botón [Place Order]
+* Selecciona método de pago Transbank Onepay, luego presiona el botón [Place Order]
 
   ![Paso 8](img/paso23.png)
 
