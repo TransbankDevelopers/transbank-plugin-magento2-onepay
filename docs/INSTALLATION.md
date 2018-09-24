@@ -97,7 +97,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 10](img/paso10.png)
   
-2. Dentro del sitio de administración diríjete a (Stores / Configuration).
+2. Dentro del sitio de administración dirígete a (Stores / Configuration).
 
   ![Paso 11](img/paso11.png)
 
