@@ -6,19 +6,19 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
 ## Requisitos
 
-Ud. debe tener instalado previamente Magento2 o usar esta guia para instalar uno basado en docker.
+Debes tener instalado previamente Magento2 o usar esta guia para instalar uno basado en docker.
 
-Además debe crear una cuenta en Magento Marketplace siguiendo este tutorial oficial: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
+Además debes crear una cuenta en Magento Marketplace siguiendo este tutorial oficial: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
 
-Luego de crear la cuenta y crear la llave de acceso debe respaldar "Public Key" y "Private Key" dado que pueden ser requeridas durante el proceso de instalación de magento2.
+Luego de crear la cuenta y crear la llave de acceso debes respaldar "Public Key" y "Private Key" dado que pueden ser requeridas durante el proceso de instalación de magento2.
 
 ## Instalación de la imagen docker de Magento2 para probar el plugin
 
-1. Diríjase a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clone el repositorio.
+1. Diríjete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clona el repositorio.
 
-  Una vez clonado el repositorio puede seguir el README o seguir esta guia para proceder con la instalación de Magento2.
+  Una vez clonado el repositorio puedes seguir el README o seguir esta guia para proceder con la instalación de Magento2.
 
-  Ingrese a la carpeta "transbank-plugin-magento2-onepay-example" y ejecute el comando:
+  Ingresa a la carpeta "transbank-plugin-magento2-onepay-example" y ejecuta el comando:
 
     ./init
 
@@ -32,7 +32,7 @@ Luego de crear la cuenta y crear la llave de acceso debe respaldar "Public Key" 
 
   ![Paso 3](img/paso3.png)
 
-  Al ingresar al contenedor, ejecutar el comando (Si el proceso de instalación pide autenticarse ingrese como username el valor de su "Public key" y como password el valor de su "Private Key" obtenidos anteriormente):
+  Al ingresar al contenedor, ejecutar el comando (Si el proceso de instalación pide autenticarse ingresa como username el valor de tu "Public key" y como password el valor de tu "Private Key" obtenidos anteriormente):
 
     install-magento2
 
@@ -53,9 +53,9 @@ Luego de crear la cuenta y crear la llave de acceso debe respaldar "Public Key" 
 
 ## Instalación del Plugin
 
-1. Diríjase a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
+1. Diríjete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
 
-  Solamente si ha salido del contenedor, ejecutar el comando:
+  Solamente si has salido del contenedor, ejecutar el comando:
 
     ./shell
 
@@ -85,19 +85,19 @@ Luego de crear la cuenta y crear la llave de acceso debe respaldar "Public Key" 
 
   ![Paso 9](img/paso9.png)
   
-2. Una vez realizado el proceso anterior, Magento2 debe haber instalado el plugin Onepay. Cuando finalice, debe activar el plugin en el administrador de Magento2.
+2. Una vez realizado el proceso anterior, Magento2 debe haber instalado el plugin Onepay. Cuando finalice, debes activar el plugin en el administrador de Magento2.
 
 ## Configuración
 
-Este plugin posee un sitio de configuración que te permitirá ingresar credenciales que Transbank te otorgará, y además podrás generar un documento de diagnóstico en caso que Transbank te lo pida.
+Este plugin posee un sitio de configuración que te permitirá ingresar credenciales que Transbank te otorgará y además podrás generar un documento de diagnóstico en caso que Transbank te lo pida.
 
 Para acceder a la configuración, debes seguir los siguientes pasos:
 
-1. Dirígete a la página de administración de Magento2 (usualmente en http://misitio.com/admin, http://localhost/admin) e ingrese usuario y clave.
+1. Dirígete a la página de administración de Magento2 (usualmente en http://misitio.com/admin, http://localhost/admin) e ingresa usuario y clave.
 
   ![Paso 10](img/paso10.png)
   
-2. Dentro del sitio de administración dirigirse a (Stores / Configuration).
+2. Dentro del sitio de administración diríjete a (Stores / Configuration).
 
   ![Paso 11](img/paso11.png)
 
@@ -109,7 +109,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 13](img/paso13.png)
 
-5. Bajando al listado de metodos de pagos verá OnePay
+5. Bajando al listado de métodos de pagos verás OnePay
 
   ![Paso 14](img/paso14.png)
 
@@ -162,7 +162,7 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
 **Importante:** Se debe usar **Firefox** para realizar la prueba de compra dado que este magento2 basado en docker necesita de una configuración especial para que funcione el iniciar sesión correctamente en Chrome lo cual esta fuera del alcance de esta guia.
 
-* Ingrese al comercio, puede usar los datos de prueba
+* Ingresa al comercio, puede usar los datos de prueba
 
   - Email: roni_cost@example.com
   - Password: roni_cost3@example.com
@@ -183,23 +183,23 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
   ![Paso 3](img/dir3.png)
 
-* Ya con la sesión iniciada, ingrese a cualquier sección para agregar productos
+* Ya con la sesión iniciada, ingresa a cualquier sección para agregar productos
 
   ![Paso 4](img/paso19.png)
 
-* Agregue al carro de compras un producto:
+* Agrega al carro de compras un producto:
 
   ![Paso 5](img/paso20.png)
 
-* Seleccione el carro de compras y luego presione el botón [Proceed to Checkout]:
+* Selecciona el carro de compras y luego presiona el botón [Proceed to Checkout]:
 
   ![Paso 6](img/paso21.png)
 
-* Seleccione método de envío y presione el botón [Next]
+* Selecciona método de envío y presiona el botón [Next]
 
   ![Paso 7](img/paso22.png)
 
-* Seleccione método de pago Transbank Onepay, luego precione el botón [Place Order]
+* Selecciona método de pago Transbank Onepay, luego preciona el botón [Place Order]
 
   ![Paso 8](img/paso23.png)
 
@@ -219,7 +219,7 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
  ![Paso 12](img/paso27.png)
 
-* Además si accedes al sitio de administración seccion (Sales / Ordes) se podra ver la orden creada y el detalle de los datos entregados por OnePay.
+* Además si accedes al sitio de administración seccion (Sales / Ordes) se podrá ver la orden creada y el detalle de los datos entregados por OnePay.
 
  ![Paso 13](img/paso28.png)
 
