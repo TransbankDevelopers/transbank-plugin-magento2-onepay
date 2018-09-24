@@ -14,7 +14,7 @@ Luego de crear la cuenta y crear la llave de acceso debes respaldar "Public Key"
 
 ## Instalación de la imagen docker de Magento2 para probar el plugin
 
-1. Diríjete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clona el repositorio.
+1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clona el repositorio.
 
   Una vez clonado el repositorio puedes seguir el README o seguir esta guia para proceder con la instalación de Magento2.
 
@@ -53,7 +53,7 @@ Luego de crear la cuenta y crear la llave de acceso debes respaldar "Public Key"
 
 ## Instalación del Plugin
 
-1. Diríjete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
+1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
 
   Solamente si has salido del contenedor, ejecutar el comando:
 
