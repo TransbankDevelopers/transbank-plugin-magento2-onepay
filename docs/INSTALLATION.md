@@ -112,8 +112,6 @@ El plugin solamente funciona con moneda chilena CLP dado esto magento2 debe esta
 
 En ambiente de integración es posible realizar una prueba de transacción utilizando un emulador de pagos online.
 
-**Importante:** Se debe usar **Firefox** para realizar la prueba de compra dado que este magento2 basado en docker necesita de una configuración especial para que funcione el iniciar sesión correctamente en Chrome lo cual esta fuera del alcance de esta guia.
-
 * Ingresa al comercio
 
   ![Paso 1](img/paso18.png)
