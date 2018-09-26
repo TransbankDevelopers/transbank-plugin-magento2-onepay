@@ -6,70 +6,14 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
 ## Requisitos
 
-Debes tener instalado previamente Magento2 o usar esta guia para instalar uno basado en docker.
-
-Además debes crear una cuenta en Magento Marketplace siguiendo este tutorial oficial: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
-
-Luego de crear la cuenta y crear la llave de acceso debes respaldar "Public Key" y "Private Key" dado que pueden ser requeridas durante el proceso de instalación de magento2.
-
-## Instalación de la imagen docker de Magento2 para probar el plugin
-
-1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clona el repositorio.
-
-  Una vez clonado el repositorio puedes seguir el README o seguir esta guia para proceder con la instalación de Magento2.
-
-  Ingresa a la carpeta "transbank-plugin-magento2-onepay-example" y ejecuta el comando:
-
-    ./init
-
-  ![Paso 1](img/paso1.png)
-
-  ![Paso 2](img/paso2.png)
-
-  Cuando finalice, ejecutar el comando:
-
-    ./shell
-
-  ![Paso 3](img/paso3.png)
-
-  Al ingresar al contenedor, ejecutar el comando (Si el proceso de instalación pide autenticarse ingresa como username el valor de tu "Public key" y como password el valor de tu "Private Key" obtenidos anteriormente):
-
-    install-magento2
-
-  ![Paso 4](img/paso4.png)
-
-  Cuando finalice, ejecutar los comandos:
-
-    magento sampledata:deploy && magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
-
-  ![Paso 5](img/paso5.png)
-
-  Con esto se ha instalado Magento2 y ya puede ser usado
-
-    - Sitio: http://localhost
-    - Admin: http://localhost/admin
-      - usuario: admin
-      - clave: admin123
+1. Debes tener instalado previamente Magento2
+2. Tus credenciales de Magento Market a mano. Si no sabes cuales son tus credenciales puedes revisar esta guia: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
 
 ## Instalación del Plugin
 
-1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
+1. En tu directorio de Magento2, ejecutar el comando:
 
-  Solamente si has salido del contenedor, ejecutar el comando:
-
-    ./shell
-
-  ![Paso 3](img/paso3.png)
-
-  Dentro del contenedor, ejecutar el comando:
-
-    composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
-
-  ![Paso 6](img/paso6.png)
-
-  Cuando finalice, ejecutar el comando:
-
-    composer require transbank/onepay:dev-master 
+        composer require transbank/onepay-magento2
 
   ![Paso 7](img/paso7.png)
 
@@ -109,7 +53,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 13](img/paso13.png)
 
-5. Bajando al listado de métodos de pagos verás OnePay
+5. Bajando al listado de métodos de pagos verás Onepay
 
   ![Paso 14](img/paso14.png)
 
@@ -160,28 +104,9 @@ El plugin solamente funciona con moneda chilena CLP dado esto magento2 debe esta
 
 En ambiente de integración es posible realizar una prueba de transacción utilizando un emulador de pagos online.
 
-**Importante:** Se debe usar **Firefox** para realizar la prueba de compra dado que este magento2 basado en docker necesita de una configuración especial para que funcione el iniciar sesión correctamente en Chrome lo cual esta fuera del alcance de esta guia.
-
-* Ingresa al comercio, puede usar los datos de prueba
-
-  - Email: roni_cost@example.com
-  - Password: roni_cost3@example.com
+* Ingresa al comercio
 
   ![Paso 1](img/paso18.png)
-
-* Ir a la cuenta de usuario y modificar la dirección de envio para que el país sea Chile (http://localhost/customer/account/)
-
-  Editar "Default Shipping Address"
-
-  ![Paso 1](img/dir1.png)
-
-  Seleccionar "Country" Chile y guardar los cambios
-
-  ![Paso 2](img/dir2.png)
-
-  Ahora se puede ver que la dirección es de Chile
-
-  ![Paso 3](img/dir3.png)
 
 * Ya con la sesión iniciada, ingresa a cualquier sección para agregar productos
 
@@ -196,6 +121,8 @@ En ambiente de integración es posible realizar una prueba de transacción utili
   ![Paso 6](img/paso21.png)
 
 * Selecciona método de envío y presiona el botón [Next]
+  
+  Debes asegurarte que tu dirección de envio sea en Chile.
 
   ![Paso 7](img/paso22.png)
 
@@ -219,7 +146,7 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
  ![Paso 12](img/paso27.png)
 
-* Además si accedes al sitio de administración seccion (Sales / Ordes) se podrá ver la orden creada y el detalle de los datos entregados por OnePay.
+* Además si accedes al sitio de administración seccion (Sales / Ordes) se podrá ver la orden creada y el detalle de los datos entregados por Onepay.
 
  ![Paso 13](img/paso28.png)
 

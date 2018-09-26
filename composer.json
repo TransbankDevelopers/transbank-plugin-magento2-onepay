@@ -1,5 +1,5 @@
 {
-  "name": "transbank/onepay",
+  "name": "transbank/onepay-magento2",
   "require": {
     "magento/module-sales": "101.0.*",
     "magento/module-store": "100.2.*",
@@ -16,7 +16,7 @@
     "magento/module-config": "101.0.*"
   },
   "type": "magento2-module",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "extra": {
     "map": [
         [

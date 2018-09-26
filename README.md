@@ -32,7 +32,7 @@ El manual de instalación para el usuario final se encuentra disponible [acá](d
     magento module:enable Transbank_Onepay --clear-static-content
 	magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
     ```
-4. Habilitar y configurar el plugin OnePay en la sección de administración de magento2 bajo  Stores/Configuration/Payment Methods/OnePay
+4. Habilitar y configurar el plugin Onepay en la sección de administración de magento2 bajo  Stores/Configuration/Payment Methods/Onepay
 
 5. Configurar APIkey y Shared Secret para ambos ambientes (Producción e Integración)
 
@@ -48,6 +48,13 @@ composer update
 magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
+
+# Otras Notas
+
+Onepay solo trabaja con CLP! Si CLP no es tu moneda principal, no podrás usar este plugin en el proceso de checkout. Esto se encuentra en duro en [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
+
+Si no sabes como realizar esta configuracion puedes verlo en [este documento](docs/INSTALLATION.md)
+
 ## Reinstalación
 
 1. Ir a la carpeta base de Magento2
@@ -69,8 +76,3 @@ composer update
 magento module:enable Transbank_Onepay --clear-static-content
 magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 ```
-
-
-## Otras Notas
-
-Onepay solo trabaja con CLP! Si CLP no es tu modena principal, no podrás usar este plugin en el proceso de checkout. Esto se encuentra en duro en [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
