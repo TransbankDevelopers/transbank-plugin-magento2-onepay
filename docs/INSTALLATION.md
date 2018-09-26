@@ -6,7 +6,7 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
 ## Requisitos
 
-1. Debes tener instalado previamente Magento2
+1. Debes tener instalado previamente Magento2 y asegurarte de tener [Composer](https://getcomposer.org) instalado.
 2. Tus credenciales de Magento Market a mano. Si no sabes cuales son tus credenciales puedes revisar esta guia: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
 
 ## Instalación del Plugin
