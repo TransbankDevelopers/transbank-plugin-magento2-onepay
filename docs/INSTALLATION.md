@@ -15,13 +15,7 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
   En tu directorio de Magento2, ejecutar el comando:
 
-    composer config repositories.transbankonepay vcs https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay.git
-
-  ![Paso 6](img/paso6.png)
-
-  Cuando finalice, ejecutar el comando:
-
-    composer require transbank/onepay:dev-master 
+    composer require transbank/onepay-magento2
 
   ![Paso 7](img/paso7.png)
 
@@ -129,6 +123,8 @@ En ambiente de integración es posible realizar una prueba de transacción utili
   ![Paso 6](img/paso21.png)
 
 * Selecciona método de envío y presiona el botón [Next]
+  
+  Debes asegurarte que tu dirección de envio sea en Chile.
 
   ![Paso 7](img/paso22.png)
 
