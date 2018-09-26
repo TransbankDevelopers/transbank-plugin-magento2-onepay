@@ -4,7 +4,7 @@
     <system>
         <section id="payment">
             <group id="transbank_onepay" translate="label" type="text" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>OnePay</label>
+                <label>Onepay</label>
 
                 <comment>
                     <![CDATA[<img src="https://web2desa.test.transbank.cl/tbk-ewallet-client-portal/static/images/logo-tarjetas.png" width="150" height="65" ><br/><br/>]]>

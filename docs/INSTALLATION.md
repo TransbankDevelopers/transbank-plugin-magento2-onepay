@@ -109,7 +109,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 13](img/paso13.png)
 
-5. Bajando al listado de métodos de pagos verás OnePay
+5. Bajando al listado de métodos de pagos verás Onepay
 
   ![Paso 14](img/paso14.png)
 
@@ -219,7 +219,7 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
  ![Paso 12](img/paso27.png)
 
-* Además si accedes al sitio de administración seccion (Sales / Ordes) se podrá ver la orden creada y el detalle de los datos entregados por OnePay.
+* Además si accedes al sitio de administración seccion (Sales / Ordes) se podrá ver la orden creada y el detalle de los datos entregados por Onepay.
 
  ![Paso 13](img/paso28.png)
 

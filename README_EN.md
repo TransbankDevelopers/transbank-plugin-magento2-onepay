@@ -32,7 +32,7 @@ The installation manual for the end user is available [here](docs/INSTALLATION.m
     magento module:enable Transbank_Onepay --clear-static-content
 	magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
     ```
-4. Enable and configure Onepay in Magento Admin under Stores/Configuration/Payment Methods/OnePay
+4. Enable and configure Onepay in Magento Admin under Stores/Configuration/Payment Methods/Onepay
 
 5. Configure APIkey and Shared Secret for both environments (Production and Integration)
 
