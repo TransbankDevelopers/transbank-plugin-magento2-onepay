@@ -114,26 +114,9 @@ En ambiente de integración es posible realizar una prueba de transacción utili
 
 **Importante:** Se debe usar **Firefox** para realizar la prueba de compra dado que este magento2 basado en docker necesita de una configuración especial para que funcione el iniciar sesión correctamente en Chrome lo cual esta fuera del alcance de esta guia.
 
-* Ingresa al comercio, puede usar los datos de prueba
-
-  - Email: roni_cost@example.com
-  - Password: roni_cost3@example.com
+* Ingresa al comercio
 
   ![Paso 1](img/paso18.png)
-
-* Ir a la cuenta de usuario y modificar la dirección de envio para que el país sea Chile (http://localhost/customer/account/)
-
-  Editar "Default Shipping Address"
-
-  ![Paso 1](img/dir1.png)
-
-  Seleccionar "Country" Chile y guardar los cambios
-
-  ![Paso 2](img/dir2.png)
-
-  Ahora se puede ver que la dirección es de Chile
-
-  ![Paso 3](img/dir3.png)
 
 * Ya con la sesión iniciada, ingresa a cualquier sección para agregar productos
 
