@@ -51,7 +51,7 @@ magento setup:upgrade && magento setup:di:compile && magento setup:static-conten
 
 # Otras Notas
 
-Onepay solo trabaja con CLP! Si CLP no es tu modena principal, no podrás usar este plugin en el proceso de checkout. Esto se encuentra en duro en [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
+Onepay solo trabaja con CLP! Si CLP no es tu moneda principal, no podrás usar este plugin en el proceso de checkout. Esto se encuentra en duro en [payment model](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/blob/master/Model/Onepay.php)
 
 Si no sabes como realizar esta configuracion puedes verlo en [este documento](docs/INSTALLATION.md)
 

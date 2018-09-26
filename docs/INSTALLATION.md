@@ -11,11 +11,9 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
 ## Instalación del Plugin
 
-1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay) para ver el repositorio del plugin.
+1. En tu directorio de Magento2, ejecutar el comando:
 
-  En tu directorio de Magento2, ejecutar el comando:
-
-    composer require transbank/onepay-magento2
+        composer require transbank/onepay-magento2
 
   ![Paso 7](img/paso7.png)
 
