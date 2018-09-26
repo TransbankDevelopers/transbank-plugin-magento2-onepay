@@ -6,50 +6,8 @@ Este plugin oficial ha sido creado para que puedas integrar Onepay fácilmente e
 
 ## Requisitos
 
-Debes tener instalado previamente Magento2 o usar esta guia para instalar uno basado en docker.
-
-Además debes crear una cuenta en Magento Marketplace siguiendo este tutorial oficial: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
-
-Luego de crear la cuenta y crear la llave de acceso debes respaldar "Public Key" y "Private Key" dado que pueden ser requeridas durante el proceso de instalación de magento2.
-
-## Instalación de la imagen docker de Magento2 para probar el plugin
-
-1. Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay-example) y clona el repositorio.
-
-  Una vez clonado el repositorio puedes seguir el README o seguir esta guia para proceder con la instalación de Magento2.
-
-  Ingresa a la carpeta "transbank-plugin-magento2-onepay-example" y ejecuta el comando:
-
-    ./init
-
-  ![Paso 1](img/paso1.png)
-
-  ![Paso 2](img/paso2.png)
-
-  Cuando finalice, ejecutar el comando:
-
-    ./shell
-
-  ![Paso 3](img/paso3.png)
-
-  Al ingresar al contenedor, ejecutar el comando (Si el proceso de instalación pide autenticarse ingresa como username el valor de tu "Public key" y como password el valor de tu "Private Key" obtenidos anteriormente):
-
-    install-magento2
-
-  ![Paso 4](img/paso4.png)
-
-  Cuando finalice, ejecutar los comandos:
-
-    magento sampledata:deploy && magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
-
-  ![Paso 5](img/paso5.png)
-
-  Con esto se ha instalado Magento2 y ya puede ser usado
-
-    - Sitio: http://localhost
-    - Admin: http://localhost/admin
-      - usuario: admin
-      - clave: admin123
+1. Debes tener instalado previamente Magento2
+2. Tus credenciales de Magento Market a mano. Si no sabes cuales son tus credenciales puedes revisar esta guia: [https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html](https://devdocs.magento.com/guides/v2.2/install-gde/prereq/connect-auth.html)
 
 ## Instalación del Plugin
 
