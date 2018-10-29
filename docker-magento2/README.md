@@ -74,7 +74,7 @@ cp pub/errors/local.xml.sample pub/errors/local.xml
 **Admin:** http://localhost/admin
 
     user: admin
-    password: password
+    password: admin123
 
 **PHPMyAdmin:** http://localhost:8090
 
