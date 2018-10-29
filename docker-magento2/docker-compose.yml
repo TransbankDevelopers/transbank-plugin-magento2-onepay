@@ -15,7 +15,7 @@ services:
     links:
       - db
     networks:
-      - transbank-plugin-magento2-onepay-example-network
+      - magento2-network
 
   db:
     image: mariadb
@@ -29,7 +29,7 @@ services:
     volumes:
       - dbdata:/var/lib/mysql
     networks:
-      - transbank-plugin-magento2-onepay-example-network
+      - magento2-network
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -41,10 +41,10 @@ services:
     ports:
      - 8090:80
     networks:
-      - transbank-plugin-magento2-onepay-example-network
+      - magento2-network
 
 networks:
-  transbank-plugin-magento2-onepay-example-network:
+  magento2-network:
     driver: bridge
 
 volumes:
