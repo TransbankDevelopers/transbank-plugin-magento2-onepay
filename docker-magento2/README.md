@@ -37,21 +37,30 @@ Para instalar Magento 2, hacer lo siguiente:
 Además se puede especificar la versión a instalar (e.j. `install-magento2 2.2.6`).
 
 ```
-cd transbank-plugin-magento2-onepay-example
 ./init
-./shell
 install-magento2 2.2.6
 magento sampledata:deploy && magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 cp pub/errors/local.xml.sample pub/errors/local.xml
 ```
 
-### Como ejecutar magento2 si se encuentra detenido
+### Como usar
 
-Para iniciar Magento 2, hacer lo siguiente:
+### Construir el contenedor desde cero
 
 ```
-cd transbank-plugin-magento2-onepay-example
+./init
+```
+
+### Iniciar el contenedor construido anteriormente
+
+```
 ./start
+```
+
+### Acceder al contenedor
+
+```
+./shell
 ```
 
 ### Instala el plugin de Onepay en magento2 siguiendo el README
@@ -65,7 +74,7 @@ cd transbank-plugin-magento2-onepay-example
 **Admin:** http://localhost/admin
 
     user: admin
-    password: admin123
+    password: password
 
 **PHPMyAdmin:** http://localhost:8090
 
@@ -73,7 +82,7 @@ cd transbank-plugin-magento2-onepay-example
 
 | Comandos  | Descripcion  | Opciones & Ejemplos |
 |---|---|---|
-| `./init`  | Crea el proyecto, contenedores, images, volemes, etc.. |
+| `./init`  | Crea los contenedores, images, volemes, etc.. |
 | `./start`  | Iniciar los contenedores  | |
 | `./stop`  | Detener los contenedores  | |
 | `./kill`  | Detener los contendores y eliminar contenedores, networks, volumes, e images creadas para el proyecto  | |
