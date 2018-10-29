@@ -12,8 +12,8 @@ Este plugin de Magento2 implementa el [SDK PHP de Onepay](https://github.com/Tra
 * setasign/fpdf
 
 ## Nota  
-- La versión del sdk de php se encuentra en el archivo composer.json
-- La versión del sdk de javascript se encuentra en el archivo view/frontend/layout/checkout_index_index.xml
+- La versión del sdk de php se encuentra en el archivo `composer.json`
+- La versión del sdk de javascript se encuentra en el archivo `view/frontend/layout/checkout_index_index.xml`
 
 ## Instalación
 
