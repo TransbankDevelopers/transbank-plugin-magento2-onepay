@@ -11,6 +11,10 @@ Este plugin de Magento2 implementa el [SDK PHP de Onepay](https://github.com/Tra
 * transbank/transbank-sdk
 * setasign/fpdf
 
+## Nota  
+- La versión del sdk de php se encuentra en el archivo `composer.json`
+- La versión del sdk de javascript se encuentra en el archivo `view/frontend/layout/checkout_index_index.xml`
+
 ## Instalación
 
 El manual de instalación para el usuario final se encuentra disponible [acá](docs/INSTALLATION.md) o en PDF [acá](https://github.com/TransbankDevelopers/transbank-plugin-magento2-onepay/raw/master/docs/INSTALLATION.pdf
@@ -78,3 +82,9 @@ rm -rf app/code/Transbank/Onepay*
 ```
 
 3. Seguir el proceso de instalación descrito anteriormente.
+
+## Desarrollo
+
+Para apoyar el levantamiento rápido de un ambiente de desarrollo, hemos creado la especificación de contenedores a través de Docker Compose.
+
+Para usarlo seguir el siguiente [README Magento 2](./docker-magento2)
