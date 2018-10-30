@@ -55,7 +55,7 @@ Para acceder a la configuración, debes seguir los siguientes pasos:
 
   ![Paso 11](img/paso11.png)
 
-3. Luego a sección (Sales / Payments Methods).
+3. Luego a sección interna (Sales / Payments Methods).
 
   ![Paso 12](img/paso12.png)
 
@@ -94,11 +94,11 @@ Para el ambiente de Integración, puedes utilizar las siguientes credenciales pa
 
 El plugin solamente funciona con moneda chilena CLP dado esto magento2 debe estar correctamente configurado para que que se pueda usar Onepay.
 
-1. Ir a la sección de administración (Stores / General / Country Option) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
+1. Ir a la sección de administración (Stores / General / General / Country Options) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
 
   ![Paso 1](img/clp1.png)
 
-2. Ir a la sección de administración (Stores / Currency Setup / Country Option) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
+2. Ir a la sección de administración (Stores / General / Currency Setup / Currency Options) y elegir Chile tal como se muestra en la siguiente imagen, luego guardar los cambios.
 
   ![Paso 2](img/clp2.png)
 
