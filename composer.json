@@ -24,5 +24,15 @@
             "Transbank/Onepay"
         ]
     ]
+  },
+  "archive": {
+    "exclude": [
+        "/docs",
+        "/docker-magento2",
+        "/package.sh",
+        "/.travis.yml",
+        "/.gitignore",
+        "/.gitattributes"
+    ]
   }
 }
