@@ -35,21 +35,15 @@ Dirígete a [https://github.com/TransbankDevelopers/transbank-plugin-magento2-on
 
 ## Habilitar el plugin para que sea visible para magento2
 
-1. Luego de haber instalado el plugin, ejecutar los siguientes comandos:
-   
-  Cuando finalice, ejecutar el comando:
-
-    composer require transbank/onepay:dev-master 
-
-  Cuando finalice, ejecutar el comando:
+Luego de haber instalado el plugin, ejecutar los siguientes comandos:
 
     magento module:enable Transbank_Onepay --clear-static-content
 
-  Cuando finalice, ejecutar el comando:
+Cuando finalice, ejecutar el comando:
 
     magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
 
-2. Una vez realizado el proceso anterior, Magento2 debe haber instalado el plugin Onepay. Cuando finalice, debes activar el plugin en el administrador de Magento2.
+Una vez realizado el proceso anterior, Magento2 debe haber instalado el plugin Onepay. Cuando finalice, debes activar el plugin en el administrador de Magento2.
 
 ## Configuración
 
