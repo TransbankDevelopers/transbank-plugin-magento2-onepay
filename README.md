@@ -87,4 +87,4 @@ rm -rf app/code/Transbank/Onepay*
 
 Para apoyar el levantamiento rápido de un ambiente de desarrollo, hemos creado la especificación de contenedores a través de Docker Compose.
 
-Para usarlo seguir el siguiente [README Magento 2](./docker-magento3)
+Para usarlo seguir el siguiente [README Magento 2](./docker-magento2)
