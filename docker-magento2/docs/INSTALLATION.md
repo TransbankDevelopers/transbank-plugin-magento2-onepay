@@ -17,12 +17,8 @@ Existen dos formas de instalar el plugin en el contenedor docker, desde packagis
 
 Dirígete a [https://packagist.org/packages/transbank/onepay-magento2](https://packagist.org/packages/transbank/onepay-magento2) para ver el repositorio del plugin.
 
-  En tu directorio de Magento2, editar el archivo `composer.json` y agregar a `required` el modulo `transbank/onepay-magento2`, donde `VERSION` es la última mostrada en el sitio:
+  En tu directorio de Magento2, editar el archivo `composer.json` y agregar a `required` el modulo `transbank/onepay-magento2`, eligiendo la última versión mostrada en el sitio:
 
-    "transbank/onepay-magento2": "VERSION"
-
-Ejemplo: 
-    
     "transbank/onepay-magento2": "1.0.1"
 
 ## Método 2: Instalación del Plugin desde github.com
