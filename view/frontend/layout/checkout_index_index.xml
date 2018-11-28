@@ -2,7 +2,7 @@
 <pagepage layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
     <head>
-        <script src="https://cdn.rawgit.com/TransbankDevelopers/transbank-sdk-js-onepay/v1.5.9/lib/merchant.onepay.min.js" src_type="url" />
+        <script src="https://unpkg.com/transbank-onepay-frontend-sdk@1.5/lib/merchant.onepay.min.js" src_type="url" />
     </head>
     <body>
         <referenceBlock name="checkout.root">
