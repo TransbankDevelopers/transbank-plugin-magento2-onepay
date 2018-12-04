@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace Transbank\Onepay\Controller\Transaction;
 
 use \Transbank\Onepay\OnepayBase;
@@ -15,7 +15,7 @@ use \Magento\Sales\Model\Order;
 /**
  * Controller for commit transaction Onepay
  */
-class Commit extends \Magento\Framework\App\Action\Action {
+class CommitOnepay extends \Magento\Framework\App\Action\Action {
 
     public function __construct(\Magento\Framework\App\Action\Context $context,
                                 \Magento\Checkout\Model\Cart $cart,
@@ -25,7 +25,7 @@ class Commit extends \Magento\Framework\App\Action\Action {
                                 \Transbank\Onepay\Model\CustomLogger $log) {
 
         parent::__construct($context);
-        
+
         $this->_cart = $cart;
         $this->_checkoutSession = $checkoutSession;
         $this->_resultJsonFactory = $resultJsonFactory;
@@ -33,7 +33,7 @@ class Commit extends \Magento\Framework\App\Action\Action {
         $this->_configProvider = $configProvider;
         $this->_log = $log;
     }
- 
+
     public function execute() {
 
         //$orderStatusComplete = Order::STATE_COMPLETE;
@@ -104,7 +104,7 @@ class Commit extends \Magento\Framework\App\Action\Action {
                                                <br><b>Monto cuota:</b> {$installmentsAmount}";
                     }
 
-                    $metadata2 = array('amount' => $amount, 
+                    $metadata2 = array('amount' => $amount,
                                     'authorizationCode' => $authorizationCode,
                                     'occ' => $occ,
                                     'externalUniqueNumber' => $externalUniqueNumber,
