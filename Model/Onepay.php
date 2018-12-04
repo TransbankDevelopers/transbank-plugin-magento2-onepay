@@ -120,7 +120,7 @@ class Onepay extends \Magento\Payment\Model\Method\AbstractMethod {
 
     private function getApiKey() {
         $environment = $this->getEnvironment();
-        if ($environment == 'PRODUCCION') {
+        if ($environment == 'LIVE') {
             return $this->_scopeConfig->getValue('payment/transbank_onepay/apiKeyProduction');
         } else {
             return $this->_scopeConfig->getValue('payment/transbank_onepay/apiKeyIntegration');
@@ -129,7 +129,7 @@ class Onepay extends \Magento\Payment\Model\Method\AbstractMethod {
 
     private function getSharedSecret() {
         $environment = $this->getEnvironment();
-        if ($environment == 'PRODUCCION') {
+        if ($environment == 'LIVE') {
             return $this->_scopeConfig->getValue('payment/transbank_onepay/sharedSecretProduction');
         } else {
             return $this->_scopeConfig->getValue('payment/transbank_onepay/sharedSecretIntegration');

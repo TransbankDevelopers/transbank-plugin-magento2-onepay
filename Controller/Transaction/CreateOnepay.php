@@ -1,5 +1,5 @@
 <?php
- 
+
 namespace Transbank\Onepay\Controller\Transaction;
 
 use \Transbank\Onepay\OnepayBase;
@@ -16,13 +16,14 @@ use \Magento\Sales\Model\Order;
 /**
  * Controller for create transaction Onepay
  */
-class Create extends \Magento\Framework\App\Action\Action {
+class CreateOnepay extends \Magento\Framework\App\Action\Action {
 
     public function __construct(\Magento\Framework\App\Action\Context $context,
                                 \Magento\Checkout\Model\Cart $cart,
                                 \Magento\Checkout\Model\Session $checkoutSession,
                                 \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
                                 \Magento\Quote\Model\QuoteManagement $quoteManagement,
+                                \Magento\Store\Model\StoreManagerInterface $storeManager,
                                 \Transbank\Onepay\Model\Config\ConfigProvider $configProvider,
                                 \Transbank\Onepay\Model\CustomLogger $log) {
 
@@ -32,13 +33,35 @@ class Create extends \Magento\Framework\App\Action\Action {
         $this->_checkoutSession = $checkoutSession;
         $this->_resultJsonFactory = $resultJsonFactory;
         $this->_quoteManagement = $quoteManagement;
+        $this->_storeManager = $storeManager;
         $this->_configProvider = $configProvider;
         $this->_log = $log;
     }
- 
+
     public function execute() {
 
         $response = null;
+
+        if (isset($_GET['config']) && $_GET['config'] == 'true') {
+
+            $quote = $this->_cart->getQuote();
+            $items = $quote->getAllVisibleItems();
+
+            $transactionDescription = '';
+
+            if (count($items) == 1) {
+                $transactionDescription = $items[0]->getName();
+            }
+
+            $response = array(
+                'logoUrl' => $this->_configProvider->getLogoUrl(),
+                'transactionDescription' => $transactionDescription
+            );
+
+            $result = $this->_resultJsonFactory->create();
+            $result->setData($response);
+            return $result;
+        }
 
         $channel = isset($_POST['channel']) ? $_POST['channel'] : null;
         $guestEmail = isset($_GET['guestEmail']) ? $_GET['guestEmail'] : null;
@@ -50,10 +73,16 @@ class Create extends \Magento\Framework\App\Action\Action {
                 $apiKey = $this->_configProvider->getApiKey();
                 $sharedSecret = $this->_configProvider->getSharedSecret();
                 $environment = $this->_configProvider->getEnvironment();
+                $baseUrl = $this->_storeManager->getStore()->getBaseUrl();
+
+                if (!$this->endsWith($baseUrl, '/')) {
+                    $baseUrl.='/';
+                }
 
                 OnepayBase::setApiKey($apiKey);
                 OnepayBase::setSharedSecret($sharedSecret);
                 OnepayBase::setCurrentIntegrationType($environment);
+                OnepayBase::setCallbackUrl($baseUrl . 'checkout/transaction/commitonepay');
 
                 $options = new Options($apiKey, $sharedSecret);
 
@@ -167,7 +196,7 @@ class Create extends \Magento\Framework\App\Action\Action {
 
         $result = $this->_resultJsonFactory->create();
         $result->setData($response);
-        return $result;   
+        return $result;
     }
 
     private function getOrder() {
@@ -181,5 +210,13 @@ class Create extends \Magento\Framework\App\Action\Action {
         } catch (Exception $e) {
             return null;
         }
+    }
+
+    private function endsWith($haystack, $needle) {
+        $length = strlen($needle);
+        if ($length == 0) {
+            return true;
+        }
+        return (substr($haystack, -$length) === $needle);
     }
 }

@@ -26,13 +26,13 @@ class ConfigProvider implements \Magento\Checkout\Model\ConfigProviderInterface 
         return json_encode($result);
     }
 
-    public function getEnvironment() { 
+    public function getEnvironment() {
         return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/environment');
     }
 
     public function getApiKey() {
         $environment = $this->getEnvironment();
-        if ($environment == 'PRODUCCION') {
+        if ($environment == 'LIVE') {
             return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/apiKeyProduction');
         } else {
             return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/apiKeyIntegration');
@@ -41,14 +41,14 @@ class ConfigProvider implements \Magento\Checkout\Model\ConfigProviderInterface 
 
     public function getSharedSecret() {
         $environment = $this->getEnvironment();
-        if ($environment == 'PRODUCCION') {
+        if ($environment == 'LIVE') {
             return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/sharedSecretProduction');
         } else {
             return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/sharedSecretIntegration');
         }
     }
 
-    public function getLogoUrl() { 
+    public function getLogoUrl() {
         return $this->_scopeConfigInterface->getValue('payment/transbank_onepay/logoUrl');
     }
 
@@ -59,7 +59,7 @@ class ConfigProvider implements \Magento\Checkout\Model\ConfigProviderInterface 
     public function getMagentoVersion() {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
         $productMetadata = $objectManager->get('Magento\Framework\App\ProductMetadataInterface');
-        return $productMetadata->getVersion(); 
+        return $productMetadata->getVersion();
     }
 
     public function logfileLocation() {

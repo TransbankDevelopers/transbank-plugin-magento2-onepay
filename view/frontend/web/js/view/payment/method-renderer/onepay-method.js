@@ -37,20 +37,23 @@ define(
             },
             placeOrder: function() {
 
-                var config = JSON.parse(window.checkoutConfig.pluginConfig);
+                var endpoint = './transaction/createonepay';
 
-                var endpoint = './transaction/create';
+                $.getJSON(endpoint + '?config=true', function(config) {
 
-                if (quote.guestEmail) {
-                    endpoint+='?guestEmail=' + encodeURIComponent(quote.guestEmail);
-                }
+                    if (quote.guestEmail) {
+                        endpoint+='?guestEmail=' + encodeURIComponent(quote.guestEmail);
+                    }
 
-                var options = {
-                    endpoint: endpoint,
-                    commerceLogo: config.logoUrl || '',
-                    callbackUrl: './transaction/commit'
-                };
-                Onepay.checkout(options);
+                    var options = {
+                        endpoint: endpoint,
+                        commerceLogo: config.logoUrl || '',
+                        callbackUrl: './transaction/commitonepay',
+                        transactionDescription: config.transactionDescription || ''
+                    };
+
+                    Onepay.checkout(options);
+                });
             }
         })
     }
