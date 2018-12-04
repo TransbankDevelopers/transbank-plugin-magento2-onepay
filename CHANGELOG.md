@@ -6,8 +6,8 @@ y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.ht
 
 ## [1.0.5] - 2018-12-04
 ### Fixed
-- Corrige lectura de condiguraciones
-- Corrige configuraciones internas
+- Corrige lectura de configuraciones.
+- Corrige configuraciones internas.
 ### Added
 - Agrega uso de `transactionDescription` cuando el carro tiene un item.
 
