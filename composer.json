@@ -1,5 +1,6 @@
 {
   "name": "transbank/onepay-magento2",
+  "description": "Plugin oficial de magento2 para Onepay",
   "require": {
     "magento/module-sales": "101.0.*",
     "magento/module-store": "100.2.*",
@@ -16,7 +17,7 @@
     "magento/module-config": "101.0.*"
   },
   "type": "magento2-module",
-  "version": "1.0.2",
+  "version": "1.0.5",
   "extra": {
     "map": [
         [
@@ -34,5 +35,6 @@
         "/.gitignore",
         "/.gitattributes"
     ]
-  }
+  },
+  "license": "BSD-3-Clause"
 }
