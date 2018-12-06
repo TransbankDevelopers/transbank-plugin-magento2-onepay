@@ -101,6 +101,18 @@ tail -f /var/www/html/administrator/logs/webpay-log.log.php
 | `./kill`  | Detener los contendores y eliminar contenedores, networks, volumes, e images creadas para el proyecto  | |
 | `./shell`  | Aceder al contenedor  | `./shell root` | |
 
+## Extras para usar ngrok y probar en dominio virtual especialmente para emular producción
+
+1.- Ejecutar ngrok y obtener la url dada por ngrok en `Forwarding` http
+
+    ngrok http 80
+
+2.- Ir al admin de magento2 sección (Stores / Web / Base URLs)
+
+    - Modificar `Base URL` y `Base Link URL` estableciendo la url entregada por ngrok
+
+    Ej: http://acd877c2.ngrok.io/
+
 ### Licencia
 
 MIT © 2018
