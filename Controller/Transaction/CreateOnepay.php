@@ -144,13 +144,23 @@ class CreateOnepay extends \Magento\Framework\App\Action\Action {
                     $carro->add($item);
                 }
 
+                $amountTmp = $carro->getTotal();
+
                 $dataLog = array('quote_id' => $this->_checkoutSession->getLastQuoteId(),
                                  'order_id' => $this->_checkoutSession->getLastOrderId(),
                                  'order_increment_id' => $this->_checkoutSession->getLastRealOrderId(),
-                                 'grand_total' => $this->_checkoutSession->getGrandTotal()
+                                 'grand_total' => $this->_checkoutSession->getGrandTotal(),
+                                 'amountTmp' => $amountTmp
                                 );
 
                 $this->_log->info('Creando transaccion: ' . json_encode($dataLog));
+
+                if ($amountTmp > $this->_checkoutSession->getGrandTotal()) {
+                    $discount = intval($amountTmp - $this->_checkoutSession->getGrandTotal());
+                    $this->_log->info('Aplicando descuento: ' . $discount);
+                    $item = new Item("Descuento", 1, -$discount);
+                    $carro->add($item);
+                }
 
                 $transaction = Transaction::create($carro, $channel, $options);
 
