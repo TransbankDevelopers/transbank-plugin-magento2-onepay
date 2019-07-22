@@ -1,8 +1,9 @@
-FROM php:7.2-apache
+FROM php:7.2-apache-stretch
 
 # Install System Dependencies
-RUN apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+RUN apt-get update
+RUN apt-get install apt-utils -y
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 	software-properties-common \
 	&& apt-get update \
 	&& DEBIAN_FRONTEND=noninteractive apt-get install -y \
@@ -13,9 +14,8 @@ RUN apt-get update \
 	libedit-dev \
 	libedit2 \
 	libxslt1-dev \
-	apt-utils \
 	gnupg \
-	mariadb-client \
+	mysql-client \
 	git \
 	nano \
 	wget \
