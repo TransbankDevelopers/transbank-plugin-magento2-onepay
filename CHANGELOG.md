@@ -4,6 +4,10 @@ Todos los cambios notables a este proyecto serán documentados en este archivo.
 El formato está basado en [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 y este proyecto adhiere a [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2019-07-22
+### Changed
+- Agrega soporte para php 7.2 y Magento 2.3.1.
+
 ## [1.0.7] - 2018-12-17
 ### Changed
 - Agrega soporte para descuentos del carro.
