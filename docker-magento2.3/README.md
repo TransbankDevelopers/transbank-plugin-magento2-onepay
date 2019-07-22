@@ -41,6 +41,8 @@ Además se puede especificar la versión a instalar (e.j. `install-magento2 2.3.
 ./shell
 install-magento2 2.3.1
 magento sampledata:deploy && magento setup:upgrade && magento setup:di:compile && magento setup:static-content:deploy
+composer require setasign/fpdf:1.8.1
+composer require transbank/transbank-sdk:VERSION
 ```
 
 ### Como usar
